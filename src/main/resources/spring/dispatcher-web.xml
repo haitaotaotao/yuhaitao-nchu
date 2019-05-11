@@ -15,47 +15,26 @@
     <!-- 只把动态信息当做controller处理，忽略静态信息 -->
     <mvc:default-servlet-handler/>
     <!-- 自动扫描包中的Controlller -->
-    <context:component-scan base-package="sell.controller"/>
-<!--spring_war_exploded/-->
+    <context:component-scan base-package="techermanager.controller"/>
+
     <!--HandlerMapping 无需配置，springmvc可以默认启动-->
 
     <!--静态资源映射-->
     <!--本项目把静态资源放在了WEB-INF的statics目录下，资源映射如下-->
-    <mvc:resources mapping="/css/**" location="/WEB-INF/assets/css/"/>
-<!--    <mvc:resources mapping="/lay/**" location="/WEB-INF/assets/lay/"/>-->
-<!--    <mvc:resources mapping="/js/**" location="/WEB-INF/assets/js/"/>-->
-    <mvc:resources mapping="/images/**" location="/WEB-INF/assets/images/"/>
-    <mvc:resources mapping="/font/**" location="/WEB-INF/assets/font/"/>
+    <mvc:resources mapping="/css/**" location="/WEB-INF/statics/css/"/>
+    <mvc:resources mapping="/js/**" location="/WEB-INF/statics/js/"/>
+    <mvc:resources mapping="/image/**" location="/WEB-INF/statics/image/"/>
+
 
 
 
     <!-- 对模型视图名称的解析，即在模型视图名称添加前后缀(如果最后一个还是表示文件夹,则最后的斜杠不要漏了) 使用JSP-->
     <!-- 默认的视图解析器 在上边的解析错误时使用 (默认使用html)- -->
-<!--    <bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
-<!--        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>-->
-<!--        <property name="prefix" value="/WEB-INF/view/"/>&lt;!&ndash;设置JSP文件的目录位置&ndash;&gt;-->
-<!--        <property name="suffix" value=".jsp"/>-->
-<!--    </bean>-->
-
-
-    <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
-        <property name="prefix" value="/WEB-INF/view/" />
-        <property name="suffix" value=".html" />
-        <property name="templateMode" value="HTML5" />
-        <property name="cacheable" value="false" />
-        <property name="characterEncoding" value="UTF-8"/>
+    <bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/view/"/><!--设置JSP文件的目录位置-->
+        <property name="suffix" value=".jsp"/>
     </bean>
-
-    <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
-        <property name="templateResolver" ref="templateResolver" />
-    </bean>
-
-    <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
-        <property name="templateEngine" ref="templateEngine" />
-        <property name="characterEncoding"  value="UTF-8" />
-    </bean>
-
-
 
 
 </beans>

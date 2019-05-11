@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="techermanager.dao.ItemMapper" >
+  <resultMap id="BaseResultMap" type="techermanager.pojo.Item" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <result column="status_name" property="statusName" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="dead_line" property="deadLine" jdbcType="VARCHAR" />
+    <result column="file" property="file" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from item
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="techermanager.pojo.Item" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into item (user_id, user_name, creat_time, 
+      `status`, status_name, remark, 
+      item_name, dead_line, `file`
+      )
+    values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=BIGINT}, #{statusName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{itemName,jdbcType=VARCHAR}, #{deadLine,jdbcType=VARCHAR}, #{file,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="techermanager.pojo.Item" >
+    update item
+    set user_id = #{userId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      `status` = #{status,jdbcType=BIGINT},
+      status_name = #{statusName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      item_name = #{itemName,jdbcType=VARCHAR},
+      dead_line = #{deadLine,jdbcType=VARCHAR},
+      `file` = #{file,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, user_id, user_name, creat_time, `status`, status_name, remark, item_name, 
+    dead_line, `file`
+    from item
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, user_id, user_name, creat_time, `status`, status_name, remark, item_name, 
+    dead_line, `file`
+    from item
+  </select>
+</mapper>

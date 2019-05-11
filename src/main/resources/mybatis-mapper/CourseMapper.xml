@@ -1,24 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="sell.dao.CourseMapper" >
-    <resultMap id="courseMap" type="sell.pojo.Course" >
-        <result column="courseId" property="courseId" jdbcType="VARCHAR" />
-        <result column="courseName" property="courseName" jdbcType="VARCHAR" />
-        <result column="teacherName" property="teacherName" jdbcType="VARCHAR" />
-        <result column="address" property="address" jdbcType="VARCHAR" />
-        <result column="startTimes" property="startTimes" jdbcType="TIMESTAMP" />
-        <result column="eddTimes" property="eddTimes" jdbcType="TIMESTAMP" />
-    </resultMap>
-    <select id="findAllCourse" resultMap="courseMap">
-        select * from course;
-    </select>
-    <delete id="deleteCourse" parameterType="String">
-        delete from course where courseId=#{courseId};
-    </delete>
-    <insert id="addCourse" parameterType="sell.pojo.Course">
-        insert into course (courseId,courseName,teacherName,address,startTimes,eddTimes) values (#{courseId},#{courseName},#{teacherName},#{address},#{startTimes},#{eddTimes});
-    </insert>
-    <update id="updateCourse" parameterType="sell.pojo.Course">
-        update course set courseId=#{courseId},courseName=#{courseName},teacherName=#{teacherName},address=#{address},startTimes=#{startTimes},eddTimes=#{eddTimes} where courseId=#{courseId};
-    </update>
+<mapper namespace="techermanager.dao.CourseMapper" >
+  <resultMap id="BaseResultMap" type="techermanager.pojo.Course" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+    <result column="course_code" property="courseCode" jdbcType="VARCHAR" />
+    <result column="course_creat_time" property="courseCreatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from course
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="techermanager.pojo.Course" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into course (course_name, course_code, course_creat_time
+      )
+    values (#{courseName,jdbcType=VARCHAR}, #{courseCode,jdbcType=VARCHAR}, #{courseCreatTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="techermanager.pojo.Course" >
+    update course
+    set course_name = #{courseName,jdbcType=VARCHAR},
+      course_code = #{courseCode,jdbcType=VARCHAR},
+      course_creat_time = #{courseCreatTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, course_name, course_code, course_creat_time
+    from course
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, course_name, course_code, course_creat_time
+    from course
+  </select>
 </mapper>
