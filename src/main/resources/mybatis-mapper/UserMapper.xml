@@ -55,6 +55,23 @@
     from user
   </select>
 
+
+    <select id="selectByCondition" resultMap="BaseResultMap" >
+        select id, user_name, account, `password`, `status`, creat_time, faculty, sex, modify_time,
+        phone
+        from user where  1=1
+
+        <if  test="faculty!=null  and faculty!=''">
+            and  faculty=#{faculty}
+        </if>
+
+        <if test="userName!=null and userName!='' ">
+            and  user_name=#{userName}
+        </if>
+
+    </select>
+
+
     <select id="selectByAountNo" resultMap="BaseResultMap" >
         select id, user_name, account, `password`, `status`, creat_time, faculty, sex, modify_time
         from user where account=#{AccountNo}

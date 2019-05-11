@@ -14,6 +14,8 @@ public interface UserMapper {
 
     List<User> selectAll();
 
+    List<User> selectByCondition(@Param("faculty") String faculty,@Param("userName") String userName);
+
     int updateByPrimaryKey(User record);
 
     User  selectByAountNo(@Param("AccountNo") String AccountNo);

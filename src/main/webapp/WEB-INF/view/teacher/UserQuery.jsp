@@ -6,9 +6,28 @@
 <div class="layui-layout layui-layout-admin">
     <%@include file="../layout/t_nav.jsp" %>
     <%@include file="../layout/t_left_nav.jsp" %>
+
     <div class="layui-body">
-        <!-- 内容主体区域 -->
         <div style="padding: 15px;">
+        <!-- 内容主体区域 -->
+        <div class="demoTable">
+            <div class="layui-inline">
+             学院：
+            </div>
+            <div class="layui-inline">
+                 <input class="layui-input" name="faculty" id="faculty" autocomplete="off">
+            </div>
+
+            <div class="layui-inline">
+               用户名：
+            </div>
+            <div class="layui-inline">
+                 <input class="layui-input" name="username" id="username" autocomplete="off">
+            </div>
+
+            <button class="layui-btn" data-type="reload">搜索</button>
+        </div>
+
                 <table  class="layui-hide" id="test"></table>
         </div>
     </div>
@@ -34,7 +53,35 @@
                 ]]
                 ,page: true
             });
+
+
+
+
+        var $ = layui.$, active = {
+            reload: function(){
+                var faculty = $('#faculty');
+                var username=$('#username');
+                //执行重载
+                table.reload('test', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        key: {
+                            faculty: faculty.val(),
+                            userName:username.val(),
+                        }
+                    }
+                });
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
         });
+        });
+
     </script>
 </div>
 </body>

@@ -1,5 +1,6 @@
 package techermanager.controller;
 
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -121,14 +122,16 @@ public class UserController {
      */
     @RequestMapping(value = "/queryUsers", method = RequestMethod.GET)
     @ResponseBody
-    public Response queryUsers(@RequestParam(value ="page" ) Integer page,@RequestParam("limit")  Integer limit) {
+    public Response queryUsers(@RequestParam(value = "page") Integer page, @RequestParam("limit") Integer limit,
+            @RequestParam(value = "key[faculty]" ,required = false) String faculty,
+            @RequestParam(value = "key[userName]",required = false) String userName) {
         Response<User> response = new Response();
         response.setCode(0);
-        if (page==null){
-            page=1;
+        if (page == null) {
+            page = 1;
         }
         PageHelper.startPage(page, limit);
-        List<User> users = userMapper.selectAll();
+        List<User> users = userMapper.selectByCondition(faculty,userName);
         PageInfo<User> pageInfo = new PageInfo<>(users);
         response.setCount(pageInfo.getTotal());
         response.setData(pageInfo.getList());
