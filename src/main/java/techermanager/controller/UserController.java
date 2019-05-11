@@ -1,12 +1,16 @@
 package techermanager.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import techermanager.dao.UserMapper;
 import techermanager.pojo.Form.UserForm;
 import techermanager.pojo.User;
+import techermanager.pojo.response.Response;
 
 
 import javax.servlet.http.HttpSession;
@@ -16,8 +20,8 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-
-
+    @Autowired
+    private UserMapper userMapper;
 
     /**
      * 处理登陆请求
@@ -29,64 +33,108 @@ public class UserController {
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
     public String doLogin(UserForm userForm, HttpSession session, Model model) {
         System.out.println("处理登录请求");
-                User user = new User();
-//                user.setuNo(userForm.getuNo());
-//                user.setPassword(userForm.getPassword());
-//                BizResult<User> bizResult = userService.doLogin(user);
-//                if (bizResult.getSuccess()) {
-//                    session.setAttribute("User", bizResult.getDate());
-//                    User resultDate = bizResult.getDate();
-//                    if (resultDate.getPower().equals(UserEnum.ADMIN.getCode())||resultDate.getPower().equals(UserEnum.SURPER_ADMIN.getCode())) {//判断权限
-//
-//                        return "redirect:/user/adminOrder";
-//                    } else {
-//                        return "redirect:/user/center";
-//                    }
-//
-//                } else {
-//                    String msg = bizResult.getMsg();
-//                    System.out.println("校验失败:  " + msg);
-//
-//                    return "/index";
-//                }
+        User user = userMapper.selectByAountNo(userForm.getuNo());
+        if (user == null) {
+            System.out.println("登录失败,没有该账号");
+            model.addAttribute("msg", "登录失败,没有该账号！");
+            return "teacher/login";
+        }
+        if (StringUtils.isEmpty(userForm.getPassword())) {
+            System.out.println("登录失败,密码为空");
+            model.addAttribute("msg", "登录失败,密码为空！");
+            return "teacher/login";
+        }
 
-
-        return "redirect:/PersonDetail";
+        if (userForm.getPassword().equals(user.getPassword())) {
+            System.out.println("登录成功");
+            session.setAttribute("User", user);
+            return "redirect:/PersonDetail";
+        } else {
+            model.addAttribute("msg", "登录失败,账号密码不匹配！");
+            System.out.println("登录失败,账号密码不匹配");
+            return "teacher/login";
+        }
     }
 
 
+    /**
+     * 退出登录
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/exit", method = RequestMethod.GET)
+    public String exit(HttpSession session) {
 
-    //    @Autowired
-    //    private IUserService userService;
-    //    @Autowired
-    //    private IOrderService orderService;
-    //    @Autowired
-    //    private RerationInfoMapper rerationInfoMapper;
-    //    @Autowired
-    //    private UserMapper userMapper;
+        User user = (User) session.getAttribute("User");
+        if (user == null) {
+            //-1表示注销
+            return "redirect:/login?msg=-1";
+        } else {
+            session.removeAttribute("User");
+            return "redirect:/login?msg=-1";
+        }
+    }
 
-//    /**
-//     * 处理注册请求
-//     *
-//     * @param userForm
-//     * @param session
-//     * @return
-//     */
-//    @RequestMapping(value = "/doSign", method = RequestMethod.POST)
-//    @ResponseBody
-//    public int doSign(@RequestBody UserForm userForm, HttpSession session) {
-//        //        User user = new User(userForm.getuNo(), userForm.getAddress(), userForm.getEmail(), userForm.getIdentity(), userForm.getPassword(), userForm.getPhone(), userForm.getSex(), userForm.getUserName());
-//        //
-//        //        BizResult bizResult = userService.doSign(user);
-//        //        if (bizResult.getSuccess()) {
-//        //
-//        //            session.setAttribute("User", user);
-//        //            return 1;
-//        //        } else {
-//        //            return -1;
-//        //        }
-//        return 1;
-//    }
+
+    /**
+     * 处理注册请求
+     *
+     * @param userForm
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/doSign", method = RequestMethod.POST)
+    @ResponseBody
+    public int doSign(@RequestBody UserForm userForm, HttpSession session) {
+        System.out.println("处理注册");
+        User user = new User();
+        user.setAccount(userForm.getuNo());
+        user.setFaculty(userForm.getFaculty());
+        user.setPassword(userForm.getPassword());
+        user.setSex(userForm.getSex());
+        if ("on".equals(userForm.getStatus())) {
+            user.setStatus(1L);
+        } else {
+            user.setStatus(0L);
+        }
+        user.setPhone(userForm.getPhone());
+        user.setUserName(userForm.getUserName());
+        try {
+            int num = userMapper.insert(user);
+            if (num > 0) {
+                return 1;
+            } else {
+                return -1;
+            }
+        } catch (Exception ex) {
+            return -1;
+        }
+
+    }
+
+
+    /**
+     * 查询所有用户信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/queryUsers", method = RequestMethod.GET)
+    @ResponseBody
+    public Response queryUsers(@RequestParam(value ="page" ) Integer page,@RequestParam("limit")  Integer limit) {
+        Response<User> response = new Response();
+        response.setCode(0);
+        if (page==null){
+            page=1;
+        }
+        PageHelper.startPage(page, limit);
+        List<User> users = userMapper.selectAll();
+        PageInfo<User> pageInfo = new PageInfo<>(users);
+        response.setCount(pageInfo.getTotal());
+        response.setData(pageInfo.getList());
+        return response;
+    }
+
 
     @RequestMapping(value = "/doValiNo", method = RequestMethod.GET)
     @ResponseBody
@@ -105,7 +153,6 @@ public class UserController {
         return 1;
 
     }
-
 
 
     /**
@@ -250,26 +297,26 @@ public class UserController {
     @RequestMapping(value = "/userPwd", method = RequestMethod.GET)
     public String modifyPwd(HttpSession session, Model model) {
 
-//        User user = (User) session.getAttribute("User");
-//        if (user == null) {
-//            return "/login";
-//        }
-//        model.addAttribute("admin", user);
-//        return "userPwd";
-//    }
-//
-//    /**
-//     * 处理修改密码的请求
-//     */
-//    @RequestMapping(value = "/userChangePwd", method = RequestMethod.POST)
-//    public String userChangePwd(String pwd, String newPwd, String newRePwd, HttpSession session, Model model) {
-//        User user = (User) session.getAttribute("User");
-//        if (user == null) {
-//            return "/login";
-//        }
-//
-//        BizResult bizResult = userService.userChangePwd(user, pwd, newPwd, newRePwd);
-//        model.addAttribute("msg", bizResult.getMsg());
+        //        User user = (User) session.getAttribute("User");
+        //        if (user == null) {
+        //            return "/login";
+        //        }
+        //        model.addAttribute("admin", user);
+        //        return "userPwd";
+        //    }
+        //
+        //    /**
+        //     * 处理修改密码的请求
+        //     */
+        //    @RequestMapping(value = "/userChangePwd", method = RequestMethod.POST)
+        //    public String userChangePwd(String pwd, String newPwd, String newRePwd, HttpSession session, Model model) {
+        //        User user = (User) session.getAttribute("User");
+        //        if (user == null) {
+        //            return "/login";
+        //        }
+        //
+        //        BizResult bizResult = userService.userChangePwd(user, pwd, newPwd, newRePwd);
+        //        model.addAttribute("msg", bizResult.getMsg());
 
         return "result";
 
@@ -281,13 +328,13 @@ public class UserController {
      */
     @RequestMapping(value = "/UserAdminList", method = RequestMethod.GET)
     public String UserAdminList(HttpSession session, Model model) {
-//        User user = (User) session.getAttribute("User");
-//        if (user == null) {
-//            return "redirect:login";
-//        }
-//        List<User> AdminUserList = userMapper.selectAllByPower(UserEnum.ADMIN.getCode());
-//        model.addAttribute("AdminUserList", AdminUserList);
-//        model.addAttribute("admin", user);
+        //        User user = (User) session.getAttribute("User");
+        //        if (user == null) {
+        //            return "redirect:login";
+        //        }
+        //        List<User> AdminUserList = userMapper.selectAllByPower(UserEnum.ADMIN.getCode());
+        //        model.addAttribute("AdminUserList", AdminUserList);
+        //        model.addAttribute("admin", user);
         return "/UserAdminList";
     }
 
@@ -296,12 +343,12 @@ public class UserController {
      */
     @RequestMapping(value = "/addUserAdmin", method = RequestMethod.GET)
     public String addUserAdmin(HttpSession session, Model model) {
-//        User user = (User) session.getAttribute("User");
-//        if (user == null) {
-//            return "redirect:login";
-//        }
-//
-//        model.addAttribute("admin", user);
+        //        User user = (User) session.getAttribute("User");
+        //        if (user == null) {
+        //            return "redirect:login";
+        //        }
+        //
+        //        model.addAttribute("admin", user);
         return "/addUserAdmin";
     }
 
@@ -312,37 +359,37 @@ public class UserController {
     @RequestMapping(value = "/delUser ", method = RequestMethod.GET)
     @ResponseBody
     public int delFight(@RequestParam("id") Long id, HttpSession session, Model model) {
-//        User user = (User) session.getAttribute("User");
-//        if (user == null) {
-//            return -2;
-//        }
-//        int result = userMapper.deleteByPrimaryKey(id);
-//
-//        if (result > 0) {
-//            return 1;
-//        } else {
-//            return -1;
-//        }
-return 0;
+        //        User user = (User) session.getAttribute("User");
+        //        if (user == null) {
+        //            return -2;
+        //        }
+        //        int result = userMapper.deleteByPrimaryKey(id);
+        //
+        //        if (result > 0) {
+        //            return 1;
+        //        } else {
+        //            return -1;
+        //        }
+        return 0;
     }
 
-//    /**
-//     * 增加管理员的方法
-//     */
-//    @RequestMapping(value = "/addUserAdminInfo", method = RequestMethod.POST)
-//    public String addUserAdminInfo(User user, HttpSession session, Model model) {
-////        User userPower = (User) session.getAttribute("User");
-////        if (userPower == null) {
-////            return "redirect:login";
-////        }
-////        user.setPower(UserEnum.ADMIN.getCode());
-////
-////        userMapper.insert(user);
-////        model.addAttribute("msg", "添加成功");
-////        model.addAttribute("admin", user);
-//
-//        return "/result";
-//    }
+    //    /**
+    //     * 增加管理员的方法
+    //     */
+    //    @RequestMapping(value = "/addUserAdminInfo", method = RequestMethod.POST)
+    //    public String addUserAdminInfo(User user, HttpSession session, Model model) {
+    ////        User userPower = (User) session.getAttribute("User");
+    ////        if (userPower == null) {
+    ////            return "redirect:login";
+    ////        }
+    ////        user.setPower(UserEnum.ADMIN.getCode());
+    ////
+    ////        userMapper.insert(user);
+    ////        model.addAttribute("msg", "添加成功");
+    ////        model.addAttribute("admin", user);
+    //
+    //        return "/result";
+    //    }
 
 
 }

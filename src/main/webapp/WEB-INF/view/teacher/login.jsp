@@ -26,6 +26,18 @@
             <input type="password"  name="password" id="inputPassword" class="form-control" placeholder="Password">
             &nbsp;
             <button class="btn btn-sm btn-primary btn-block" type="submit">登陆</button>
+            <%
+
+                String msg=(String)request.getAttribute("msg");
+                if (msg==null){
+                    msg="欢迎登录";
+                }
+                if (msg.equals("-1")){
+                    msg="已注销";
+                }
+            %>
+
+           提示: <%=msg%>
         </form>
     </div>
 </div> <!-- /container -->

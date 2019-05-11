@@ -12,24 +12,29 @@ public class UserForm implements Serializable {
 
     private String userName;
 
-    private String email;
+    private String faculty;
 
 
     private String phone;
 
 
-    private Byte sex;
+
+    private String sex;
 
 
-    private String address;
+    private String status;
 
 
-    private String identity;
+    public String getStatus() {
+        return status;
+    }
 
-
-
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     private static final long serialVersionUID = 1L;
+
 
 
 
@@ -62,15 +67,13 @@ public class UserForm implements Serializable {
     }
 
 
-    public String getEmail() {
-        return email;
+    public String getFaculty() {
+        return faculty;
     }
 
-
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
     }
-
 
     public String getPhone() {
         return phone;
@@ -81,35 +84,13 @@ public class UserForm implements Serializable {
     }
 
 
-    public Byte getSex() {
+    public String getSex() {
         return sex;
     }
 
-
-    public void setSex(Byte sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
-
-
-    public String getAddress() {
-        return address;
-    }
-
-
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
-    }
-
-
-    public String getIdentity() {
-        return identity;
-    }
-
-
-    public void setIdentity(String identity) {
-        this.identity = identity == null ? null : identity.trim();
-    }
-
 
 
 
@@ -122,11 +103,10 @@ public class UserForm implements Serializable {
         sb.append(", password=").append(password);
         sb.append(", uNo=").append(uNo);
         sb.append(", userName=").append(userName);
-        sb.append(", email=").append(email);
+        sb.append(", faculty=").append(faculty);
         sb.append(", phone=").append(phone);
         sb.append(", sex=").append(sex);
-        sb.append(", address=").append(address);
-        sb.append(", identity=").append(identity);
+        sb.append(", status=").append(status);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

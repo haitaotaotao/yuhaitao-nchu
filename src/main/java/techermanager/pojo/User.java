@@ -22,6 +22,8 @@ public class User implements Serializable {
 
     private Date modifyTime;
 
+    private String phone;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -96,6 +98,14 @@ public class User implements Serializable {
         this.modifyTime = modifyTime;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -111,6 +121,7 @@ public class User implements Serializable {
         sb.append(", faculty=").append(faculty);
         sb.append(", sex=").append(sex);
         sb.append(", modifyTime=").append(modifyTime);
+        sb.append(", phone=").append(phone);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

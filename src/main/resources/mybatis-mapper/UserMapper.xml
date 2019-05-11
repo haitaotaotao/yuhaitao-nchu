@@ -11,6 +11,7 @@
     <result column="faculty" property="faculty" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from user
@@ -21,11 +22,13 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into user (user_name, account, `password`, 
-      `status`, creat_time, faculty, 
-      sex, modify_time)
+      `status`, faculty,
+      sex, phone
+      )
     values (#{userName,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{status,jdbcType=BIGINT}, #{creatTime,jdbcType=TIMESTAMP}, #{faculty,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP})
+      #{status,jdbcType=BIGINT}, #{faculty,jdbcType=VARCHAR},
+      #{sex,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}
+      )
   </insert>
   <update id="updateByPrimaryKey" parameterType="techermanager.pojo.User" >
     update user
@@ -36,16 +39,24 @@
       creat_time = #{creatTime,jdbcType=TIMESTAMP},
       faculty = #{faculty,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      phone = #{phone,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, user_name, account, `password`, `status`, creat_time, faculty, sex, modify_time
+    select id, user_name, account, `password`, `status`, creat_time, faculty, sex, modify_time, 
+    phone
     from user
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, user_name, account, `password`, `status`, creat_time, faculty, sex, modify_time
+    select id, user_name, account, `password`, `status`, creat_time, faculty, sex, modify_time, 
+    phone
     from user
   </select>
+
+    <select id="selectByAountNo" resultMap="BaseResultMap" >
+        select id, user_name, account, `password`, `status`, creat_time, faculty, sex, modify_time
+        from user where account=#{AccountNo}
+    </select>
 </mapper>

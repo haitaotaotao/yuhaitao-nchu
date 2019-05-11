@@ -1,6 +1,8 @@
 package techermanager.dao;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import techermanager.pojo.User;
 
 public interface UserMapper {
@@ -13,4 +15,7 @@ public interface UserMapper {
     List<User> selectAll();
 
     int updateByPrimaryKey(User record);
+
+    User  selectByAountNo(@Param("AccountNo") String AccountNo);
+
 }

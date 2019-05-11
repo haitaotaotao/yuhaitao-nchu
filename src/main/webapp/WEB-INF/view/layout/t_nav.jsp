@@ -6,12 +6,16 @@
         <li class="layui-nav-item">
             <a href="javascript:;">
                 <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                贤心
+                <%
+
+                    String name=(String)request.getAttribute("name");
+                %>
+                <%=name%>
             </a>
             <dl class="layui-nav-child">
-                <dd><a href="">个人资料</a></dd>
+                <dd><a href="/PersonDetail">个人资料</a></dd>
             </dl>
         </li>
-        <li class="layui-nav-item"><a href="">退出登录</a></li>
+        <li class="layui-nav-item"><a href="/user/exit">退出登录</a></li>
     </ul>
 </div>

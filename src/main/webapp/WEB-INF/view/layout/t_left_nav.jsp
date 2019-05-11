@@ -6,30 +6,30 @@
             <li class="layui-nav-item layui-nav-itemed">
                 <a class="" href="javascript:;">用户管理</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">新增用户</a></dd>
-                    <dd><a href="javascript:;">用户查询</a></dd>
+                    <dd><a href="/addUser">新增用户</a></dd>
+                    <dd><a href="/UserQuery">用户查询</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">教师管理</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">教师资料</a></dd>
-                    <dd><a href="javascript:;">教师课程</a></dd>
-                    <dd><a href="javascript:;">教师科研</a></dd>
+                    <dd><a href="/PersonDetail">教师资料</a></dd>
+                    <dd><a href="/CourseInfo">教师课程</a></dd>
+                    <dd><a href="/ItemInfo">教师科研</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
                 <a  href="javascript:;">科研项目</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">项目申请</a></dd>
-                    <dd><a href="javascript:;">项目审核</a></dd>
+                    <dd><a href="/ItemApply">项目申请</a></dd>
+                    <dd><a href="/ItemAduit">项目审核</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">课程管理</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">新增课程</a></dd>
-                    <dd><a href="javascript:;">分配课程</a></dd>
+                    <dd><a href="/addCourse">新增课程</a></dd>
+                    <dd><a href="/mangerCourse">分配课程</a></dd>
                 </dl>
             </li>
         </ul>
