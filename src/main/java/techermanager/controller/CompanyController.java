@@ -29,7 +29,7 @@ public class CompanyController {
 //        }
 //        List<CompanyInfo> companyInfos=companyInfoMapper.selectAll();
 //        model.addAttribute("companyInfos",companyInfos);
-//        model.addAttribute("admin",user);
+//        model.addAttribute("admin",user);77777
 //
         return "Company";
 
