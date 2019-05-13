@@ -1,11 +1,10 @@
 package techermanager.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import techermanager.dao.CourseMapper;
 import techermanager.dao.CourseUserMapper;
 import techermanager.pojo.Course;
@@ -14,8 +13,10 @@ import techermanager.pojo.Form.CourseForm;
 import techermanager.pojo.Form.CourseUserForm;
 import techermanager.pojo.Form.UserForm;
 import techermanager.pojo.User;
+import techermanager.pojo.response.Response;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/course")
@@ -50,7 +51,12 @@ public class CourseController {
         }
     }
 
-
+    /**
+     * 处理课程分配
+     *
+     * @param
+     * @return
+     */
     @RequestMapping(value = "/mangerCourse", method = RequestMethod.POST)
     @ResponseBody
     public int mangerCourse(@RequestBody CourseUserForm courseUserForm, HttpSession session){
@@ -73,5 +79,30 @@ public class CourseController {
             } catch (Exception ex) {
                 return -1;
             }
+    }
+
+
+    /**
+     * 查询教师的课程信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/CourseInfo", method = RequestMethod.GET)
+    @ResponseBody
+    public Response queryUsers(@RequestParam(value = "page") Integer page, @RequestParam("limit") Integer limit,
+                               @RequestParam(value = "key[address]" ,required = false) String address,
+                               @RequestParam(value = "key[courseName]",required = false) String courseName) {
+        Response<CourseUser> response = new Response();
+        response.setCode(0);
+        if (page == null) {
+            page = 1;
         }
+        PageHelper.startPage(page, limit);
+        List<CourseUser> courseUsers = courseUserMapper.selectByCondition(address,courseName);
+        PageInfo<CourseUser> pageInfo = new PageInfo<>(courseUsers);
+        response.setCount(pageInfo.getTotal());
+        response.setData(pageInfo.getList());
+        return response;
+    }
+
 }

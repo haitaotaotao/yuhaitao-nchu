@@ -3,6 +3,7 @@ package techermanager.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import techermanager.pojo.response.Response;
 
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -199,24 +201,27 @@ public class UserController {
     }
 
     /**
-     * 处理进入个人中心请求
+     * 教师管理个人资料
      *
      * @param session
      * @param model
      * @return
      */
     @RequestMapping(value = "/center ", method = RequestMethod.GET)
-    public String center(HttpSession session, Model model) {
-        //        User user = (User) session.getAttribute("User");
-        //        if (user == null) {
-        //            return "redirect:/login";
-        //        }
-        //
-        //        List<FightOrderVO> fightOrderVOs = orderService.getFightOrder(user);
-        //
-        //        model.addAttribute("fightOrderVO", fightOrderVOs);
-        //        model.addAttribute("admin",user);
-        return "userAdmin";
+    public String center(Model model,HttpSession session) {
+        System.out.println("进入控制，个人资料");
+                User user = (User) session.getAttribute("User");
+                if (user == null) {
+                    return "redirect:/login";
+                }
+                else {
+                    String AccountNo=user.getUserName();
+                    List<User> userList = new ArrayList<User>();
+                    User users = userMapper.selectByAountNo(AccountNo);
+                    userList.add(users);
+                    model.addAttribute("userlist", userList);
+                }
+        return "PersonDetail";
     }
 
 

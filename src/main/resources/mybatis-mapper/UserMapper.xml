@@ -76,4 +76,5 @@
         select id, user_name, account, `password`, `status`, creat_time, faculty, sex, modify_time
         from user where account=#{AccountNo}
     </select>
+
 </mapper>

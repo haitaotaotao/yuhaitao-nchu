@@ -13,7 +13,6 @@ public interface UserMapper {
     User selectByPrimaryKey(Long id);
 
     List<User> selectAll();
-
     List<User> selectByCondition(@Param("faculty") String faculty,@Param("userName") String userName);
 
     int updateByPrimaryKey(User record);
