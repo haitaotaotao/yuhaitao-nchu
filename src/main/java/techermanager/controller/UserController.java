@@ -4,17 +4,21 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import techermanager.dao.UserMapper;
 import techermanager.pojo.Form.UserForm;
 import techermanager.pojo.User;
 import techermanager.pojo.response.Response;
+import techermanager.pojo.vo.UserVO;
 
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,7 +130,7 @@ public class UserController {
     public Response queryUsers(@RequestParam(value = "page") Integer page, @RequestParam("limit") Integer limit,
             @RequestParam(value = "key[faculty]" ,required = false) String faculty,
             @RequestParam(value = "key[userName]",required = false) String userName) {
-        Response<User> response = new Response();
+        Response<UserVO> response = new Response();
         response.setCode(0);
         if (page == null) {
             page = 1;
@@ -135,7 +139,20 @@ public class UserController {
         List<User> users = userMapper.selectByCondition(faculty,userName);
         PageInfo<User> pageInfo = new PageInfo<>(users);
         response.setCount(pageInfo.getTotal());
-        response.setData(pageInfo.getList());
+        //转换时间
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        List<UserVO> voList=new ArrayList<>();
+        if (!CollectionUtils.isEmpty(pageInfo.getList())){
+            for (User user : pageInfo.getList()) {
+                UserVO vo=new UserVO();
+                BeanUtils.copyProperties(user,vo);
+                vo.setCreatTime(sdf.format(user.getCreatTime()));
+                vo.setModifyTime(sdf.format(user.getModifyTime()));
+                voList.add(vo);
+            }
+        }
+
+        response.setData(voList);
         return response;
     }
 
