@@ -26,10 +26,16 @@
 
                 <button class="layui-btn" data-type="reload">搜索</button>
             </div>
+
             <table  class="layui-hide" id="test"></table>
         </div>
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        </script>
     </div>
     <%@include file="../layout/t_foot.jsp" %>
+
     <script>
         layui.use('table', function(){
             var table = layui.table;
@@ -46,6 +52,7 @@
                     ,{field:'userName', title: '教师名'}
                     ,{field:'courseTime',  title: '创建时间'}
                     ,{field:'address', title: '上课地点'}
+                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
                 ]]
                 ,page: true
             });

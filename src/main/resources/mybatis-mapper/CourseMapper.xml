@@ -36,4 +36,13 @@
     select id, course_name, course_code, course_creat_time
     from course
   </select>
+
+  <select id="selectByCondition" resultMap="BaseResultMap" >
+    select id, course_name, course_code, course_creat_time
+    from course where  1=1
+    <if  test="courseName!=null  and courseName!=''">
+      and  course_name=#{courseName}
+    </if>
+
+  </select>
 </mapper>
