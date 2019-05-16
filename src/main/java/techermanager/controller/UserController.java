@@ -216,29 +216,29 @@ public class UserController {
 
     }
 
-    /**
-     * 教师管理个人资料
-     *
-     * @param session
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "/center ", method = RequestMethod.GET)
-    public String center(Model model,HttpSession session) {
-        System.out.println("进入控制，个人资料");
-                User user = (User) session.getAttribute("User");
-                if (user == null) {
-                    return "redirect:/login";
-                }
-                else {
-                    String AccountNo=user.getUserName();
-                    List<User> userList = new ArrayList<User>();
-                    User users = userMapper.selectByAountNo(AccountNo);
-                    userList.add(users);
-                    model.addAttribute("userlist", userList);
-                }
-        return "PersonDetail";
-    }
+//    /**
+//     * 教师管理个人资料
+//     *
+//     * @param session
+//     * @param model
+//     * @return
+//     */
+//    @RequestMapping(value = "/center ", method = RequestMethod.GET)
+//    public String center(Model model,HttpSession session) {
+//        System.out.println("进入控制，个人资料");
+//                User user = (User) session.getAttribute("User");
+//                if (user == null) {
+//                    return "redirect:/login";
+//                }
+//                else {
+//                    String AccountNo=user.getUserName();
+//                    List<User> userList = new ArrayList<User>();
+//                    User users = userMapper.selectByAountNo(AccountNo);
+//                    userList.add(users);
+//                    model.addAttribute("userlist", userList);
+//                }
+//        return "PersonDetail";
+//    }
 
 
     /**

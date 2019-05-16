@@ -13,11 +13,8 @@ import techermanager.pojo.Course;
 import techermanager.pojo.CourseUser;
 import techermanager.pojo.Form.CourseForm;
 import techermanager.pojo.Form.CourseUserForm;
-import techermanager.pojo.Form.UserForm;
-import techermanager.pojo.User;
 import techermanager.pojo.response.Response;
 import techermanager.pojo.vo.CourseVO;
-import techermanager.pojo.vo.UserVO;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
@@ -88,28 +85,6 @@ public class CourseController {
     }
 
 
-//    /**
-//     * 查询教师的课程信息
-//     *
-//     * @return
-//     */
-//    @RequestMapping(value = "/CourseInfo", method = RequestMethod.GET)
-//    @ResponseBody
-//    public Response queryUsers(@RequestParam(value = "page") Integer page, @RequestParam("limit") Integer limit,
-//                               @RequestParam(value = "key[address]" ,required = false) String address,
-//                               @RequestParam(value = "key[courseName]",required = false) String courseName) {
-//        Response<CourseUser> response = new Response();
-//        response.setCode(0);
-//        if (page == null) {
-//            page = 1;
-//        }
-//        PageHelper.startPage(page, limit);
-//        List<CourseUser> courseUsers = courseUserMapper.selectByCondition(address,courseName);
-//        PageInfo<CourseUser> pageInfo = new PageInfo<>(courseUsers);
-//        response.setCount(pageInfo.getTotal());
-//        response.setData(pageInfo.getList());
-//        return response;
-//    }
 
 
     /**
