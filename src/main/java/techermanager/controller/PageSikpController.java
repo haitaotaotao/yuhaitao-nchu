@@ -69,6 +69,43 @@ public class PageSikpController {
         System.out.println("进入新增课程信息");
         return "teacher/addCourse";
     }
+    /**
+     * 进入查询课程信息
+     * @param session
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/CourseTeacherQuery",method = RequestMethod.GET)
+    public String CourseTeacherQuery(HttpSession session, Model model){
+        User user=(User) session.getAttribute("User");
+        if (user!=null){
+            model.addAttribute("name",user.getUserName());
+        }else {
+            model.addAttribute("msg","请先登录！");
+            return "teacher/login";
+        }
+        System.out.println("进入查询课程信息");
+        return "teacher/CourseTeacherQuery";
+    }
+
+    /**
+            * 进入查询课程
+     * @param session
+     * @param model
+     * @return
+             */
+    @RequestMapping(value = "/CourseQuery",method = RequestMethod.GET)
+    public String CourseQuery(HttpSession session, Model model){
+        User user=(User) session.getAttribute("User");
+        if (user!=null){
+            model.addAttribute("name",user.getUserName());
+        }else {
+            model.addAttribute("msg","请先登录！");
+            return "teacher/login";
+        }
+        System.out.println("进入查询课程");
+        return "teacher/CourseQuery";
+    }
 
     /**
      * 进入课程信息

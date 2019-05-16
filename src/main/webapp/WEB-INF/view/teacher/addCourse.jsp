@@ -23,14 +23,6 @@
                         <input type="text" name="courseCode" required  lay-verify="required" placeholder="请输入课程号" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-<%--                <div class="layui-form-item">--%>
-<%--                    <div class="layui-inline">--%>
-<%--                        <label class="layui-form-label">创建时间</label>--%>
-<%--                        <div class="layui-input-inline">--%>
-<%--                            <input type="text" class="layui-input" id="test4" placeholder="HH:mm:ss">--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
                         <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
@@ -41,6 +33,7 @@
         </div>
     </div>
     <%@include file="../layout/t_foot.jsp" %>
+<%--    <script src="/js/layui.js" charset="utf-8"></script>--%>
     <script>
         //Demo
         layui.use('form', function(){
@@ -62,7 +55,7 @@
                         }
 
                         if (data==-1){
-                            layer.msg("用户已存在");
+                            layer.msg("课程已存在");
                         }
 
                     }});
@@ -71,18 +64,6 @@
             });
         });
     </script>
-<%--    <script src="/js/layui.js" charset="utf-8"></script>--%>
-<%--    <script>--%>
-<%--        layui.use('laydate', function() {--%>
-<%--            var laydate = layui.laydate;--%>
-<%--            //只出现确定按钮--%>
-<%--            laydate.render({--%>
-<%--                elem: '#test4'--%>
-<%--                ,btns: ['confirm']--%>
-<%--                ,type: 'datetime'--%>
-<%--            });--%>
-<%--        });--%>
-<%--    </script>--%>
 </div>
 </body>
 </html>

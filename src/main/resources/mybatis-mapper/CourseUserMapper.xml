@@ -48,11 +48,11 @@
     select id, course_id, course_name, uesr_id, user_name, course_time, address
     from course_user where  1=1
 
-    <if  test="address!=null  and address!=''">
-      and  address=#{address}
+    <if test="userName!=null and userName!='' ">
+      and  user_name=#{userName}
     </if>
 
-    <if test="courseName!=null and courseName!='' ">
+    <if  test="courseName!=null  and courseName!=''">
       and  course_name=#{courseName}
     </if>
 

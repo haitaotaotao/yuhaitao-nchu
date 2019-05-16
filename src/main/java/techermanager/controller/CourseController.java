@@ -66,10 +66,9 @@ public class CourseController {
             courseUser.setCourseName(courseUserForm.getCourseName());
             courseUser.setUesrId(courseUserForm.getUesrId());
             courseUser.setUserName(courseUserForm.getUserName());
-//            courseUser.setCourseTime(courseUserForm.getCourseTime());
+            courseUser.setCourseTime(courseUserForm.getCourseTime());
             courseUser.setAddress(courseUserForm.getAddress());
             try {
-//                System.out.println(courseUser.getCourseId()+courseUser.getCourseName()+courseUser.getUesrId()+courseUser.getUserName()+courseUser.getAddress()+courseUser.getCourseTime());
                 int num = courseUserMapper.insert(courseUser);
                 if (num > 0) {
                     return 1;
@@ -99,6 +98,31 @@ public class CourseController {
         }
         PageHelper.startPage(page, limit);
         List<CourseUser> courseUsers = courseUserMapper.selectByCondition(address,courseName);
+        PageInfo<CourseUser> pageInfo = new PageInfo<>(courseUsers);
+        response.setCount(pageInfo.getTotal());
+        response.setData(pageInfo.getList());
+        return response;
+    }
+
+
+    /**
+     * 查询教师的课程信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/CourseTeacherQuery", method = RequestMethod.GET)
+    @ResponseBody
+    public Response CourseTeacherQuery(@RequestParam(value = "page") Integer page, @RequestParam("limit") Integer limit,
+                               @RequestParam(value = "key[userName]" ,required = false) String userName,
+                               @RequestParam(value = "key[courseName]",required = false) String courseName) {
+        System.out.println("啦啦啦啦啦啦啦啦啦啦");
+        Response<CourseUser> response = new Response();
+        response.setCode(0);
+        if (page == null) {
+            page = 1;
+        }
+        PageHelper.startPage(page, limit);
+        List<CourseUser> courseUsers = courseUserMapper.selectByCondition(userName, courseName);
         PageInfo<CourseUser> pageInfo = new PageInfo<>(courseUsers);
         response.setCount(pageInfo.getTotal());
         response.setData(pageInfo.getList());

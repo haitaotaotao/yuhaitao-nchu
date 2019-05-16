@@ -35,15 +35,12 @@
                         <input type="text" name="userName" required  lay-verify="required" placeholder="请输入教师名" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-<%--                <div class="layui-form-item">--%>
-<%--                    <div class="layui-inline">--%>
-<%--                        <label class="layui-form-label">创建时间</label>--%>
-<%--                        <div class="layui-input-inline">--%>
-<%--                                有问题，时间的秒，格式错误，出不来，script在下面写--%>
-<%--                            <input type="text" name="courseTime" required  lay-verify="required" class="layui-input" id="test4" placeholder="HH:mm:ss">--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">上课时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="courseTime" required  lay-verify="required" placeholder="请输入上课时间" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">地点</label>
                     <div class="layui-input-block">
@@ -67,7 +64,7 @@
             var form = layui.form;
             //监听提交
             form.on('submit(formDemo)', function(data){
-                layer.msg("准备进入控制层");
+                // layer.msg("准备进入控制层");
                 $.ajax({
                     url: "/course/mangerCourse",
                     type: "POST",
@@ -92,18 +89,6 @@
             });
         });
     </script>
-<%--    <script src="/js/layui.js" charset="utf-8"></script>--%>
-<%--    <script>--%>
-<%--        layui.use('laydate', function() {--%>
-<%--            var laydate = layui.laydate;--%>
-<%--            //创建时间，只出现确定按钮--%>
-<%--            laydate.render({--%>
-<%--                elem: '#test4'--%>
-<%--                ,btns: ['confirm']--%>
-<%--                ,type: 'datetime'--%>
-<%--            });--%>
-<%--        });--%>
-<%--    </script>--%>
 </div>
 </body>
 </html>

@@ -30,6 +30,8 @@
                 <dl class="layui-nav-child">
                     <dd><a href="/addCourse">新增课程</a></dd>
                     <dd><a href="/mangerCourse">分配课程</a></dd>
+                    <dd><a href="/CourseTeacherQuery">查询课程信息</a></dd>
+                    <dd><a href="/CourseQuery">查询课程</a></dd>
                 </dl>
             </li>
         </ul>

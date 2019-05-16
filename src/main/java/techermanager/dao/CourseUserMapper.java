@@ -14,7 +14,7 @@ public interface CourseUserMapper {
     CourseUser selectByPrimaryKey(Long id);
 
     List<CourseUser> selectAll();
-    List<CourseUser> selectByCondition(@Param("address") String address, @Param("courseName") String courseName);
+    List<CourseUser> selectByCondition(@Param("userName") String userName, @Param("courseName") String courseName);
 
     int updateByPrimaryKey(CourseUser record);
 }

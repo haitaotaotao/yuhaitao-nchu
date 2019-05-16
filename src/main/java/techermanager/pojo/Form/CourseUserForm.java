@@ -9,7 +9,7 @@ public class CourseUserForm {
 
     private String userName;
 
-//    private String courseTime;
+    private String courseTime;
 
     private String address;
 
@@ -48,13 +48,13 @@ public class CourseUserForm {
         this.userName = userName == null ? null : userName.trim();
     }
 
-//    public String getCourseTime() {
-//        return courseTime;
-//    }
-//
-//    public void setCourseTime(String courseTime) {
-//        this.courseTime = courseTime == null ? null : courseTime.trim();
-//    }
+    public String getCourseTime() {
+        return courseTime;
+    }
+
+    public void setCourseTime(String courseTime) {
+        this.courseTime = courseTime == null ? null : courseTime.trim();
+    }
 
     public String getAddress() {
         return address;
@@ -74,7 +74,7 @@ public class CourseUserForm {
         sb.append(", courseName=").append(courseName);
         sb.append(", uesrId=").append(uesrId);
         sb.append(", userName=").append(userName);
-//        sb.append(", courseTime=").append(courseTime);
+        sb.append(", courseTime=").append(courseTime);
         sb.append(", address=").append(address);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
