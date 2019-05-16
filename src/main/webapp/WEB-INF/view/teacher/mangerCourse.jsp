@@ -66,7 +66,7 @@
             form.on('submit(formDemo)', function(data){
                 // layer.msg("准备进入控制层");
                 $.ajax({
-                    url: "/teacher/mangerCourse",
+                    url: "/course/mangerCourse",
                     type: "POST",
                     contentType:"application/json",
                     data:JSON.stringify(data.field),  //data表示要发送的数据

@@ -10,8 +10,6 @@ public class CourseForm implements Serializable {
 
     private String courseCode;
 
-    private Date courseCreatTime;
-
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -38,13 +36,6 @@ public class CourseForm implements Serializable {
         this.courseCode = courseCode == null ? null : courseCode.trim();
     }
 
-    public Date getCourseCreatTime() {
-        return courseCreatTime;
-    }
-
-    public void setCourseCreatTime(Date courseCreatTime) {
-        this.courseCreatTime = courseCreatTime;
-    }
 
     @Override
     public String toString() {
@@ -54,7 +45,6 @@ public class CourseForm implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", courseName=").append(courseName);
         sb.append(", courseCode=").append(courseCode);
-//        sb.append(", courseCreatTime=").append(courseCreatTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
