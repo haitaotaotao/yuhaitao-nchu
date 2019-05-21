@@ -268,6 +268,25 @@ public class PageSikpController {
         return "teacher/demo";
     }
 
+    /**
+     * 进入demo
+     * @param session
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/shuju",method = RequestMethod.GET)
+    public String shuju(HttpSession session, Model model){
+        User user=(User) session.getAttribute("User");
+        if (user!=null){
+            model.addAttribute("name",user.getUserName());
+        }else {
+            model.addAttribute("msg","请先登录！");
+            return "teacher/login";
+        }
+        System.out.println("进入用户查询");
+        return "teacher/shuju";
+    }
+
 
 
 
