@@ -2,7 +2,7 @@ package techermanager.pojo;
 
 import java.io.Serializable;
 
-public class CourseUser implements Serializable {
+public class CourseUser implements Serializable{
     private Long id;
 
     private Long courseId;

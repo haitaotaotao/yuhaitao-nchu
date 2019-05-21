@@ -54,4 +54,29 @@
     dead_line, `file`
     from item
   </select>
+  <select id="selectByCondition" resultMap="BaseResultMap" >
+    select id, user_id, user_name, creat_time, `status`, status_name, remark, item_name,
+    dead_line, `file`
+    from item where  1=1
+
+    <if test="userName!=null and userName!='' ">
+      and  user_name=#{userName}
+    </if>
+
+    <if  test="itemName!=null  and itemName!=''">
+      and  item_name=#{itemName}
+    </if>
+
+  </select>
+
+  <select id="selectCondition" resultMap="BaseResultMap" >
+    select id, user_id, user_name, creat_time, `status`, status_name, remark, item_name,
+    dead_line, `file`
+    from item where user_name=#{userName}
+
+<!--    <if  test="itemName!=null  and itemName!=''">-->
+<!--      and  item_name=#{itemName}-->
+<!--    </if>-->
+
+  </select>
 </mapper>

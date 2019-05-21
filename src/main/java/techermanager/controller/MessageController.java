@@ -1,144 +1,116 @@
+//
 //package techermanager.controller;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestMethod;
-//import org.springframework.web.bind.annotation.RequestParam;
-//import sell.dao.DO.MessageMapper;
-//import sell.dao.result.BizResult;
-//import sell.pojo.Message;
-//import sell.pojo.User;
-//import sell.service.IMessageService;
-//
-//import javax.servlet.http.HttpSession;
-//import java.util.Date;
+//import java.io.File;
+//import java.io.FileOutputStream;
+//import java.io.IOException;
+//import java.io.InputStream;
+//import java.io.PrintWriter;
 //import java.util.List;
 //
-//@Controller
-//public class MessageController {
+//import javax.servlet.ServletException;
+//import javax.servlet.http.HttpServlet;
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
 //
-////    @Autowired
-////    private IMessageService messageService;
-////    @Autowired
-////    private MessageMapper messageMapper;
+//import org.apache.commons.fileupload.FileItem;
+//import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+//import org.apache.commons.fileupload.servlet.ServletFileUpload;
 //
-//    /**
-//     * 进入发布留言列表
-//     */
-//    @RequestMapping(value = "/toAddMessage",method = RequestMethod.GET)
-//    public String toAddMessage(HttpSession session,Model model){
-////        User user = (User) session.getAttribute("User");
-////        if (user == null) {
-////            return "redirect:login";
-////        }
-////        model.addAttribute("admin",user);
-//        return "AddMessage";
-//    }
-//
+//public class MessageController extends HttpServlet {
 //
 //    /**
-//     * 发布留言
+//     * The doPost method of the servlet. <br>
+//     *
+//     * This method is called when a form has its tag value method equals to post.
+//     *
+//     * @param request the request send by the client to the server
+//     * @param response the response send by the server to the client
+//     * @throws ServletException if an error occurred
+//     * @throws IOException if an error occurred
 //     */
-//    @RequestMapping(value = "/doAddMessage",method = RequestMethod.POST)
-//    public String doAddMessage(String title, String question, HttpSession session, Model model){
-////        User user = (User) session.getAttribute("User");
-////        if (user == null) {
-////            return "redirect:login";
-////        }
-////        BizResult bizResult=messageService.insertMessage(title,question,user);
-////        model.addAttribute("msg",bizResult.getMsg());
-////        model.addAttribute("admin",user);
-//        return "result";
+//    public void doPost(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//
+//
+//        //得到上传文件的保存目录，将上传的文件放在webRoot目录下（但是一般为了安全放在WEB-INF目录下，不允许外界直接访问，保证上传的安全）
+//        String path = this.getServletContext().getRealPath("/upload");
+//
+//        File file = new File(path);
+//
+//        //判断上传文件的保存目录是否存在
+//        if(!file.exists() && !file.isDirectory()){
+//            System.out.println(path + "目录不存在，需要创建！");
+//            //创建目录
+//            file.mkdir();
+//        }
+//        //消息提示
+//        String message = "";
+//        try{
+//            //使用Apache文件上传组件处理文件上传步骤：
+//            //1.创建一个DiskFileItemFactory工厂
+//            DiskFileItemFactory factory = new DiskFileItemFactory();
+//            //2.创建一个文件上传解析器
+//            ServletFileUpload upload = new ServletFileUpload(factory);
+//            //解决中文乱码
+//            upload.setHeaderEncoding("UTF-8");
+//            //3.判断提交的数据普通表单的数据还是带文件上传的表单
+//            if(!upload.isMultipartContent(request)){
+//                //如果是表单数据普通表单,则按照传统方式获取数据
+//                return ;
+//            }
+//            //4.使用ServletFileUpload解析器解析上传数据，解析结果返回的是一个List<FileItem>集合，每一个FileItem对应一个Form表单的输入项
+//            List<FileItem> list = upload.parseRequest(request);
+//            for(FileItem item : list){
+//                //如果fileItem中封装的是普通输入项的数据
+//                if(item.isFormField()){
+//                    //获取字段名字
+//                    String name = item.getFieldName();
+//                    //解决普通输入项中中文乱码问题
+//                    String value = item.getString("UTF-8");//value = new String(value.getBytes("iso8859-1"),"UTF-8");
+//                    System.out.println(name + " = " + value);
+//                }else{    //如果表单中提交的是上传文件
+//                    //获得上传的文件名称
+//                    String filename = item.getName();
+//                    System.out.println(filename);
+//                    if(filename == null || filename.trim().equals(" ")){
+//                        continue;
+//                    }
+//                    //注意：不同的浏览器提交的文件名称是不一样的，有些浏览器提交的文件会带有路径，如“D:\\project\WebRoot\hello.jsp”，有一些是单纯的文件名：hello.jsp
+//                    //去掉获取到文件名中的路径名，保留单纯的文件名
+//                    filename = filename.substring(filename.lastIndexOf("\\") + 1);
+//                    //获取item中的上传文件的输入流
+//                    InputStream in = item.getInputStream();
+//                    //创建一个文件输入流
+//                    FileOutputStream out = new FileOutputStream(path + "\\" + filename);
+//                    //创建一个缓冲区
+//                    byte buffer[] = new byte[1024];
+//                    //判断输入流中的数据是否已经读取完毕的标志位
+//                    int len = 0;
+//                    //循环将输入流读入到缓冲区当中，（len = in.read(buffer)>0）就表示in里面还有数据存在
+//                    while((len = in.read(buffer)) > 0){
+//                        //使用FileOutputStream输出流将缓冲区的数据写入到指定的目录（path+"\\"+filename）当中
+//                        out.write(buffer, 0, len);
+//                    }
+//                    //关闭输入流
+//                    in.close();
+//                    //关闭输出流
+//                    out.close();
+//                    //删除处理文件上传生成的临时文件
+//                    item.delete();
+//                    message = "文件上传成功!";
+//
+//
+//                }
+//            }
+//
+//        }catch(Exception e){
+//            message = "文件上传失败！";
+//            e.printStackTrace();
+//        }
+//
+//        request.setAttribute(message, message);
+//        request.getRequestDispatcher("fileUploadResult.jsp").forward(request, response);
+//
 //    }
 //
-//    /**
-//     * 进入留言查看列表
-//     */
-//    @RequestMapping(value = "/toMessageList",method = RequestMethod.GET)
-//    public String toMessageList(HttpSession session, Model model){
-////        User user = (User) session.getAttribute("User");
-////        if (user == null) {
-////            return "redirect:login";
-////        }
-////        model.addAttribute("admin",user);
-////       List<Message> messageList= messageMapper.selectAllByUID(user.getuId());
-////        model.addAttribute("messageList",messageList);
-//        return "userAdminMessage";
-//    }
-//
-//    /**
-//     * 进入管理员留言查看列表
-//     */
-//    @RequestMapping(value = "/toAdminMessageList",method = RequestMethod.GET)
-//    public String toAdminMessageList(HttpSession session, Model model){
-////        User user = (User) session.getAttribute("User");
-////        if (user == null) {
-////            return "redirect:login";
-////        }
-////
-////        List<Message> messageList= messageMapper.selectAll();
-////        model.addAttribute("messageList",messageList);
-////        model.addAttribute("admin",user);
-//        return "AdminMessage";
-//    }
-//
-//    /**
-//     * 删除留言
-//     */
-//    @RequestMapping(value = "/delMessage",method = RequestMethod.GET)
-//    public String delMessage(@RequestParam("mId") Long mId){
-////        messageMapper.deleteByPrimaryKey(mId);
-//        return "redirect:toMessageList";
-//    }
-//
-//
-//
-//    /**
-//     * 管理员删除留言
-//     */
-//    @RequestMapping(value = "/AdmindelMessage",method = RequestMethod.GET)
-//    public String AdmindelMessage(@RequestParam("mId") Long mId){
-////        messageMapper.deleteByPrimaryKey(mId);
-//        return "redirect:toAdminMessageList";
-//    }
-//
-//    /**
-//     * 进入留言回复列表
-//     */
-//    @RequestMapping(value = "/toUpdateMessage",method = RequestMethod.GET)
-//    public String toUpdateMessage(@RequestParam("mId") Long mId,Model model){
-////        Message message=messageMapper.selectByPrimaryKey(mId);
-////        model.addAttribute("message",message);
-//
-//        return "UpdateMessage";
-//    }
-//
-//
-//
-//    /**
-//     *  留言回复
-//     */
-//
-//    @RequestMapping(value = "/DoUpdateMessage",method = RequestMethod.POST)
-//    public String DoUpdateMessage(HttpSession session,String mAnswer,Long mId,Model model){
-////        User user=(User)session.getAttribute("User");
-////        if (user==null){
-////            return "redirect:/login";
-////        }
-////
-////        Message message=messageMapper.selectByPrimaryKey(mId);
-////        message.setmAnswer(mAnswer);
-////        message.setaTime(new Date());
-////        message.setaUserId(user.getuId());
-////        message.setaUserName(user.getUserName());
-////
-////        messageMapper.updateByPrimaryKey(message);
-//
-//
-//       model.addAttribute("msg","回复成功！");
-//
-//        return "result";
-//    }
 //}

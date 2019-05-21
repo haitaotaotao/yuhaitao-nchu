@@ -7,7 +7,8 @@
                 <a class="" href="javascript:;">用户管理</a>
                 <dl class="layui-nav-child">
                     <dd><a href="/addUser">新增用户</a></dd>
-                    <dd><a href="/UserQuery">用户查询</a></dd>
+                    <dd><a href="/UserQuery">用户列表</a></dd>
+                    <dd><a href="/shuju">数据分析</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -30,8 +31,8 @@
                 <dl class="layui-nav-child">
                     <dd><a href="/addCourse">新增课程</a></dd>
                     <dd><a href="/mangerCourse">分配课程</a></dd>
-                    <dd><a href="/CourseTeacherQuery">查询课程信息</a></dd>
-                    <dd><a href="/CourseQuery">查询课程</a></dd>
+                    <dd><a href="/CourseTeacherQuery">课程信息列表</a></dd>
+                    <dd><a href="/CourseQuery">课程列表</a></dd>
                 </dl>
             </li>
         </ul>

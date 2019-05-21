@@ -24,7 +24,7 @@
         </div>
         <script type="text/html" id="barDemo">
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs btts" lay-event="del">删除</a>
         </script>
     </div>
     <%@include file="../layout/t_foot.jsp" %>
@@ -47,7 +47,24 @@
                 ,page: true
             });
 
-
+            // //删除事件
+            // $(".btts").click(function () {
+            //     var tds = $(this).parent().parent().find('a');
+            //     var talent_id = tds.eq(0).text();
+            //     console.log(tds.eq(0).text());
+            //     $.ajax({
+            //         url: 'course',
+            //         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            //         data: {action: "CourseDelete", id: talent_id},
+            //         type: "post",
+            //         async: true,
+            //         success: function () {//请求成功之后的操作
+            //             layer.msg("再次跳转回界面");
+            //             $('#rightContent').load("CourseQuery.jsp");
+            //         }
+            //     });
+            //     return
+            // });
 
 
             var $ = layui.$, active = {
