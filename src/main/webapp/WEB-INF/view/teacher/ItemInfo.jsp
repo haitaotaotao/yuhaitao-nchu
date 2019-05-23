@@ -45,7 +45,8 @@
                     ,{field:'userName', title: '教师名'}
                     ,{field:'statusName', title: '状态'}
                     ,{field:'creatTime',  title: '创建时间'}
-                    ,{field:'file', title: '文件地址'}
+                    ,{field:'file', title: '文件地址',
+                        templet: '<div><a href="/{{d.file}}" class="layui-table-link">点击下载</a></div>'}
                     ,{field:'remark', title: '备注'}
                     ,{field:'deadLine', title: '期限'}
                     ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
