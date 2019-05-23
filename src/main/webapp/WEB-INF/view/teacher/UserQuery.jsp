@@ -30,10 +30,6 @@
 
             <table class="layui-hide" id="test"></table>
         </div>
-        <script type="text/html" id="barDemo">
-            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-        </script>
     </div>
     <%@include file="../layout/t_foot.jsp" %>
 
@@ -56,7 +52,9 @@
                     , {field: 'creatTime', title: '注册时间'}
                     , {field: 'modifyTime', title: '修改时间'}
                     , {field: 'phone', title: '联系电话'}
-                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+                    , {fixed: 'right', title: '操作', width: 150,
+                        templet:'<div><a class="layui-btn layui-btn-danger layui-btn-xs" href="/user/Delete?id={{d.id}}">删除</a></div>'
+                    }
                 ]]
                 , page: true
             });

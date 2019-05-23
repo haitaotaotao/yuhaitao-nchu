@@ -156,22 +156,21 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/doValiNo", method = RequestMethod.GET)
-    @ResponseBody
-    public int doValiNo(@RequestParam("uno") String uno) {
-        //
-        //        if (StringUtils.isNotBlank(uno)) {
-        //            BizResult bizResult = userService.valiNo(uno);
-        //            if (bizResult.getSuccess()) {
-        //                return 1;
-        //            } else {
-        //                return -1;
-        //            }
-        //        } else {
-        //            return 0;
-        //        }
-        return 1;
 
+    /**
+     * 处理删除
+     */
+    @RequestMapping(value = "/Delete", method = RequestMethod.GET)
+    public String Delete(@RequestParam(value = "id") Long id, HttpSession session, Model model) {
+
+        User user = (User) session.getAttribute("User");
+        if (user != null) {
+            userMapper.deleteByPrimaryKey(id);
+        } else {
+            model.addAttribute("msg", "请先登录！");
+            return "teacher/login";
+        }
+        return "teacher/UserQuery";
     }
 
 
