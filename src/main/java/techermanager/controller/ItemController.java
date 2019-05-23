@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -53,6 +55,7 @@ public class ItemController {
         item.setRemark(itemForm.getRemark());
         item.setDeadLine(itemForm.getDeadLine());
         item.setStatus((long) 0);
+        item.setCreatTime(new Date());
         try {
             int num = itemMapper.insert(item);
             if (num > 0) {
@@ -182,6 +185,12 @@ public class ItemController {
     }
 
 
+    /**
+     * 处理上传
+     * @param file
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/doUpload", method = RequestMethod.POST)
     public String doUpload(@RequestParam(value = "file") String file, @RequestParam(value = "item") Long id) {
         Item item= itemMapper.selectByPrimaryKey(id);
@@ -189,6 +198,23 @@ public class ItemController {
         item.setFile(str[1]);
         itemMapper.updateByPrimaryKey(item);
 
+        return "teacher/ItemInfo";
+    }
+
+
+    /**
+     * 处理删除
+     */
+    @RequestMapping(value = "/ItemDelet", method = RequestMethod.GET)
+    public String ItemUpload(@RequestParam(value = "id") Long id, HttpSession session, Model model) {
+
+        User user = (User) session.getAttribute("User");
+        if (user != null) {
+          itemMapper.deleteByPrimaryKey(id);
+        } else {
+            model.addAttribute("msg", "请先登录！");
+            return "teacher/login";
+        }
         return "teacher/ItemInfo";
     }
 

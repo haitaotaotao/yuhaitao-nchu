@@ -15,9 +15,9 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into course (course_name, course_code, course_creat_time
+    insert into course (course_name, course_code
       )
-    values (#{courseName,jdbcType=VARCHAR}, #{courseCode,jdbcType=VARCHAR}, #{courseCreatTime,jdbcType=TIMESTAMP}
+    values (#{courseName,jdbcType=VARCHAR}, #{courseCode,jdbcType=VARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="techermanager.pojo.Course" >

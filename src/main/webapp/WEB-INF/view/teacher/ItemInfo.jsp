@@ -23,9 +23,6 @@
             </div>
             <table  class="layui-hide" id="test"></table>
         </div>
-        <script type="text/html" id="barDemo">
-            <a class="layui-btn layui-btn-xs layui-icon" id="test3"  href="ItemUpload">申请结题</a>
-        </script>
     </div>
     <%@include file="../layout/t_foot.jsp" %>
     <script src="/js/layui.js" charset="utf-8"></script>
@@ -49,7 +46,10 @@
                         templet: '<div><a href="/{{d.file}}" class="layui-table-link">点击下载</a></div>'}
                     ,{field:'remark', title: '备注'}
                     ,{field:'deadLine', title: '期限'}
-                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+                    ,{fixed: 'right', title:'操作', width:150,
+                        templet:
+                            '<div><a class="layui-btn layui-btn-xs layui-icon" id="test3"  href="ItemUpload">申请结题</a>&nbsp;<a class="layui-btn layui-btn-xs layui-icon" id="test3"  href="/item/ItemDelet?id={{d.id}}">删除</a></div>'
+                    }
                 ]]
                 ,page: true
             });
