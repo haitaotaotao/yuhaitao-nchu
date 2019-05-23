@@ -2,11 +2,12 @@ package techermanager.pojo.response;
 
 
 import java.util.List;
-public class Response<T> {
+
+public class ResponseData<T> {
     private Integer code;
     private String msg;
     private Long count;
-    private List<T> data;
+    private T data;
 
 
     public Integer getCode() {
@@ -33,11 +34,17 @@ public class Response<T> {
         this.count = count;
     }
 
-    public List<T> getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(List<T> data) {
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public ResponseData( T data) {
+        this.code = 0;
+        this.msg = "上传成功,请提交";
         this.data = data;
     }
 }

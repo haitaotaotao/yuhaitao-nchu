@@ -25,6 +25,8 @@
     <mvc:resources mapping="/js/**" location="/WEB-INF/statics/js/"/>
     <mvc:resources mapping="/image/**" location="/WEB-INF/statics/image/"/>
     <mvc:resources mapping="/font/**" location="/WEB-INF/statics/font/"/>
+    <mvc:resources mapping="/uploadfile/**" location="/WEB-INF/statics/uploadfile/"/>
+
 
 
 

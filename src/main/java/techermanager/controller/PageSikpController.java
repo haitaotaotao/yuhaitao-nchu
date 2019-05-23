@@ -333,16 +333,9 @@ public class PageSikpController {
 
 
 
-    @RequestMapping(value = "/test",method = RequestMethod.GET)
-
-    public String test(){
-
-//       List<User> userList= userMapper.selectAll();
-//        for (User user : userList) {
-//            System.out.println(user.getPassword()+""+user.getuId());
-//        }
-
-
-        return  "index";
+    @RequestMapping(value = "/ItemUpload",method = RequestMethod.GET)
+    public String ItemUpload(){
+        return  "teacher/ItemUpload";
     }
+
 }
