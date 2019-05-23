@@ -29,9 +29,6 @@
 
             <table  class="layui-hide" id="test"></table>
         </div>
-        <script type="text/html" id="barDemo">
-            <a class="layui-btn layui-btn-xs" lay-event="edit">审核</a>
-        </script>
     </div>
     <%@include file="../layout/t_foot.jsp" %>
 
@@ -53,7 +50,9 @@
                     ,{field:'file', title: '文件地址'}
                     ,{field:'remark', title: '备注'}
                     ,{field:'deadLine', title: '期限'}
-                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+                    ,{fixed: 'right', title:'操作', width:150,
+                        templet:'<div><a class="layui-btn layui-btn-danger layui-btn-xs" href="/item/audit?id={{d.id}}">审核</a>&nbsp;<a class="layui-btn layui-btn-danger layui-btn-xs" href="/item/back?id={{d.id}}">撤销</a></div>'
+                }
                 ]]
                 ,page: true
             });

@@ -189,6 +189,7 @@ public class PageSikpController {
         User user = (User) session.getAttribute("User");
         if (user != null) {
             model.addAttribute("name", user.getUserName());
+            model.addAttribute("user", user);
         } else {
             model.addAttribute("msg", "请先登录！");
             return "teacher/login";

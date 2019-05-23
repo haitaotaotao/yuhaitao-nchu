@@ -1,3 +1,4 @@
+<%@ page import="techermanager.pojo.User" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -10,17 +11,14 @@
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
             <form class="layui-form">
+                <%
+                    User user= (User)request.getAttribute("user");
+                %>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">申请人工号</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="userId" required  lay-verify="required" placeholder="请输入工号" autocomplete="off" class="layui-input">
-                    </div>
+                    <label class="layui-form-label">申请人工号: <span><%=user.getId()%></span></label>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">申请人姓名</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="userName" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
-                    </div>
+                    <label class="layui-form-label">申请人姓名:<span><%=user.getUserName()%></span></label>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">科研项目名称</label>

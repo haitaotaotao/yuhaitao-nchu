@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -47,15 +46,17 @@ public class ItemController {
     @RequestMapping(value = "/ItemApply", method = RequestMethod.POST)
     @ResponseBody
     public int doSign(@RequestBody ItemForm itemForm, HttpSession session) {
+        User user = (User) session.getAttribute("User");
         System.out.println("项目申请控制层");
         Item item = new Item();
-        item.setId(itemForm.getUserId());
-        item.setUserName(itemForm.getUserName());
+        item.setUserName(user.getUserName());
         item.setItemName(itemForm.getItemName());
         item.setRemark(itemForm.getRemark());
         item.setDeadLine(itemForm.getDeadLine());
         item.setStatus((long) 0);
         item.setCreatTime(new Date());
+        item.setStatusName("待审核");
+        item.setUserId(user.getId());
         try {
             int num = itemMapper.insert(item);
             if (num > 0) {
@@ -93,7 +94,6 @@ public class ItemController {
 
         //转换时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        //        System.out.println("2222222222");
         List<ItemVO> voList = new ArrayList<>();
         if (!CollectionUtils.isEmpty(pageInfo.getList())) {
             for (Item item : pageInfo.getList()) {
@@ -187,13 +187,14 @@ public class ItemController {
 
     /**
      * 处理上传
+     *
      * @param file
      * @param id
      * @return
      */
     @RequestMapping(value = "/doUpload", method = RequestMethod.POST)
     public String doUpload(@RequestParam(value = "file") String file, @RequestParam(value = "item") Long id) {
-        Item item= itemMapper.selectByPrimaryKey(id);
+        Item item = itemMapper.selectByPrimaryKey(id);
         String[] str = file.split(",");
         item.setFile(str[1]);
         itemMapper.updateByPrimaryKey(item);
@@ -210,12 +211,49 @@ public class ItemController {
 
         User user = (User) session.getAttribute("User");
         if (user != null) {
-          itemMapper.deleteByPrimaryKey(id);
+            itemMapper.deleteByPrimaryKey(id);
         } else {
             model.addAttribute("msg", "请先登录！");
             return "teacher/login";
         }
-        return "teacher/ItemInfo";
+        return "redirect:/ItemInfo";
     }
 
+    /**
+     * 处理审核通过
+     */
+    @RequestMapping(value = "/audit", method = RequestMethod.GET)
+    public String audit(@RequestParam(value = "id") Long id, HttpSession session, Model model) {
+
+        User user = (User) session.getAttribute("User");
+        if (user != null) {
+            Item item = itemMapper.selectByPrimaryKey(id);
+            item.setStatusName("审核通过");
+            item.setStatus(1L);
+            itemMapper.updateByPrimaryKey(item);
+        } else {
+            model.addAttribute("msg", "请先登录！");
+            return "teacher/login";
+        }
+        return "redirect:/ItemAduit";
+    }
+
+    /**
+     * 处理撤销
+     */
+    @RequestMapping(value = "/back", method = RequestMethod.GET)
+    public String back(@RequestParam(value = "id") Long id, HttpSession session, Model model) {
+
+        User user = (User) session.getAttribute("User");
+        if (user != null) {
+            Item item = itemMapper.selectByPrimaryKey(id);
+            item.setStatusName("撤销");
+            item.setStatus(2L);
+            itemMapper.updateByPrimaryKey(item);
+        } else {
+            model.addAttribute("msg", "请先登录！");
+            return "teacher/login";
+        }
+        return "redirect:/ItemAduit";
+    }
 }

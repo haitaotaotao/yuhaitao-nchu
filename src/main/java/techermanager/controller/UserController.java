@@ -170,7 +170,7 @@ public class UserController {
             model.addAttribute("msg", "请先登录！");
             return "teacher/login";
         }
-        return "teacher/UserQuery";
+        return "redirect:/UserQuery";
     }
 
 
