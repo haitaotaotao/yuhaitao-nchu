@@ -15,10 +15,10 @@
                     User user= (User)request.getAttribute("user");
                 %>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">申请人工号: <span><%=user.getId()%></span></label>
+                    <label class="layui-form-label">申请人工号: <%=user.getId()%></label>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">申请人姓名:<span><%=user.getUserName()%></span></label>
+                    <label class="layui-form-label">申请人姓名:<%=user.getUserName()%></label>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">科研项目名称</label>
