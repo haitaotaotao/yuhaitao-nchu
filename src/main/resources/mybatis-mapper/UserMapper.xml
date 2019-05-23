@@ -73,7 +73,7 @@
 
 
     <select id="selectByAountNo" resultMap="BaseResultMap" >
-        select id, user_name, account, `password`, `status`, creat_time, faculty, sex, modify_time
+        select id, user_name, account, `password`, `status`, creat_time, faculty, sex, modify_time,phone
         from user where account=#{AccountNo}
     </select>
 

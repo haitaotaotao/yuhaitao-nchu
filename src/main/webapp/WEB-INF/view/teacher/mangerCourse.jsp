@@ -1,3 +1,6 @@
+<%@ page import="techermanager.pojo.Course" %>
+<%@ page import="java.util.List" %>
+<%@ page import="techermanager.pojo.User" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,27 +15,40 @@
         <div style="padding: 15px;">
             <form class="layui-form">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">课程号</label>
+                    <label class="layui-form-label">课程</label>
                     <div class="layui-input-block">
-                        <input type="text" name="courseId" required  lay-verify="required" placeholder="请输入课程号" autocomplete="off" class="layui-input">
+                        <select name="course" lay-filter="aihao">
+                            <option value=""></option>
+                            <%
+                                List<Course> courses = (List<Course>) request.getAttribute("courses");
+                                for (Course course : courses) {
+                            %>
+                            <option value="<%=course.getCourseCode()+"|"+course.getCourseName()%>"><%=course.getCourseName()%>
+                            </option>
+                            <%
+                                }
+                            %>
+                        </select>
                     </div>
                 </div>
+
                 <div class="layui-form-item">
-                    <label class="layui-form-label">课程名</label>
+                    <label class="layui-form-label">教师</label>
                     <div class="layui-input-block">
-                        <input type="text" name="courseName" required  lay-verify="required" placeholder="请输入课程名" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">教师工号</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="uesrId" required  lay-verify="required" placeholder="请输入课程名" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">教师名</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="userName" required  lay-verify="required" placeholder="请输入教师名" autocomplete="off" class="layui-input">
+                        <select name="user" lay-filter="aihao">
+                            <option value=""></option>
+                            <%
+                                List<User> users = (List<User>) request.getAttribute("users");
+                                for (User user : users) {
+                            %>
+                            <option value="<%=user.getId()+"|"+user.getUserName()%>"><%=user.getUserName()%>
+                            </option>
+                            <%
+                                }
+                            %>
+                        </select>
+
+
                     </div>
                 </div>
                 <div class="layui-form-item">

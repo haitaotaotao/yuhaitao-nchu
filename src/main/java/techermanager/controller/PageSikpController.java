@@ -7,7 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import techermanager.dao.CourseMapper;
 import techermanager.dao.ItemMapper;
+import techermanager.dao.UserMapper;
+import techermanager.pojo.Course;
 import techermanager.pojo.Item;
 import techermanager.pojo.User;
 
@@ -19,6 +22,13 @@ import java.util.List;
 public class PageSikpController {
     @Autowired
     private ItemMapper itemMapper;
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private CourseMapper courseMapper;
+
 
     /**
      * 进入登陆页面
@@ -45,6 +55,7 @@ public class PageSikpController {
         User user = (User) session.getAttribute("User");
         if (user != null) {
             model.addAttribute("name", user.getUserName());
+            model.addAttribute("user", user);
         } else {
             model.addAttribute("msg", "请先登录！");
             return "teacher/login";
@@ -230,8 +241,13 @@ public class PageSikpController {
     @RequestMapping(value = "/mangerCourse", method = RequestMethod.GET)
     public String mangerCourse(HttpSession session, Model model) {
         User user = (User) session.getAttribute("User");
+        List<User> users = userMapper.selectAll();
+        List<Course> courses = courseMapper.selectAll();
+
         if (user != null) {
             model.addAttribute("name", user.getUserName());
+            model.addAttribute("users", users);
+            model.addAttribute("courses", courses);
         } else {
             model.addAttribute("msg", "请先登录！");
             return "teacher/login";
@@ -359,5 +375,25 @@ public class PageSikpController {
     }
 
 
+    /**
+     * 进入编辑页面
+     *
+     * @param session
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/EditUser", method = RequestMethod.GET)
+    public String EditUser(HttpSession session, Model model) {
+
+        User user = (User) session.getAttribute("User");
+        if (user != null) {
+            model.addAttribute("user", user);
+            model.addAttribute("name", user.getUserName());
+        } else {
+            model.addAttribute("msg", "请先登录！");
+            return "teacher/login";
+        }
+        return "teacher/EditUser";
+    }
 
 }

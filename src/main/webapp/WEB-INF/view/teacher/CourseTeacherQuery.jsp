@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <%@include file="../layout/t_header.jsp" %>
@@ -27,59 +27,57 @@
                 <button class="layui-btn" data-type="reload">搜索</button>
             </div>
 
-            <table  class="layui-hide" id="test"></table>
+            <table class="layui-hide" id="test"></table>
         </div>
-        <script type="text/html" id="barDemo">
-            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-        </script>
     </div>
     <%@include file="../layout/t_foot.jsp" %>
 
     <script>
-        layui.use('table', function(){
+        layui.use('table', function () {
             var table = layui.table;
 
             table.render({
                 elem: '#test'
-                ,url:'/course/CourseTeacherQuery'
-                ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-                ,cols: [[
-                    {field:'id', title: 'ID', sort: true}
-                    ,{field:'courseId', title: '课程号'}
-                    ,{field:'courseName', title: '课程名'}
-                    ,{field:'uesrId', title: '教师工号'}
-                    ,{field:'userName', title: '教师名'}
-                    ,{field:'courseTime',  title: '创建时间'}
-                    ,{field:'address', title: '上课地点'}
-                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+                , url: '/course/CourseTeacherQuery'
+                , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                , cols: [[
+                    {field: 'id', title: 'ID', sort: true}
+                    , {field: 'courseId', title: '课程号'}
+                    , {field: 'courseName', title: '课程名'}
+                    , {field: 'uesrId', title: '教师工号'}
+                    , {field: 'userName', title: '教师名'}
+                    , {field: 'courseTime', title: '创建时间'}
+                    , {field: 'address', title: '上课地点'}
+                    , {
+                        fixed: 'right', title: '操作', width: 150,
+                        templet: '<div><a class="layui-btn layui-btn-danger layui-btn-xs" ' +
+                        'href="/course/Delete?id={{d.id}}">删除</a></div>'
+                    }
                 ]]
-                ,page: true
+                , page: true
             });
 
 
-
-
             var $ = layui.$, active = {
-                reload: function(){
+                reload: function () {
                     var username = $('#userName');
-                    var coursename=$('#courseName');
+                    var coursename = $('#courseName');
                     //执行重载
                     table.reload('test', {
                         page: {
                             curr: 1 //重新从第 1 页开始
                         }
-                        ,where: {
+                        , where: {
                             key: {
                                 userName: username.val(),
-                                courseName:coursename.val(),
+                                courseName: coursename.val(),
                             }
                         }
                     });
                 }
             };
 
-            $('.demoTable .layui-btn').on('click', function(){
+            $('.demoTable .layui-btn').on('click', function () {
                 var type = $(this).data('type');
                 active[type] ? active[type].call(this) : '';
             });

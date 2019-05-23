@@ -1,13 +1,13 @@
 package techermanager.pojo.Form;
 
+import techermanager.pojo.Course;
+import techermanager.pojo.User;
+
 public class CourseUserForm {
-    private Long courseId;
 
-    private String courseName;
+    private String course;
 
-    private Long uesrId;
-
-    private String userName;
+    private String user;
 
     private String courseTime;
 
@@ -16,36 +16,20 @@ public class CourseUserForm {
     private static final long serialVersionUID = 1L;
 
 
-    public Long getCourseId() {
-        return courseId;
+    public String getCourse() {
+        return course;
     }
 
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
+    public void setCourse(String course) {
+        this.course = course;
     }
 
-    public String getCourseName() {
-        return courseName;
+    public String getUser() {
+        return user;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName == null ? null : courseName.trim();
-    }
-
-    public Long getUesrId() {
-        return uesrId;
-    }
-
-    public void setUesrId(Long uesrId) {
-        this.uesrId = uesrId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getCourseTime() {
@@ -64,21 +48,5 @@ public class CourseUserForm {
         this.address = address == null ? null : address.trim();
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", courseId=").append(courseId);
-        sb.append(", courseName=").append(courseName);
-        sb.append(", uesrId=").append(uesrId);
-        sb.append(", userName=").append(userName);
-        sb.append(", courseTime=").append(courseTime);
-        sb.append(", address=").append(address);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
 }
 
