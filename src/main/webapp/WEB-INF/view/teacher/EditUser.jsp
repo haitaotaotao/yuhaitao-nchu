@@ -58,7 +58,9 @@
                     <label class="layui-form-label">是否是管理员权限</label>
                     <div class="layui-input-block">
                         <input type="checkbox"
-                            <% if (user.getStatus()==1){
+                            <% int a=1;
+                            long b=a;
+                            if (user.getStatus().equals(b)){
                         %>
 
                             <%

@@ -118,6 +118,40 @@ public class UserController {
 
     }
 
+    /**
+     * 管理员变更所有
+     *
+     * @param userForm
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/Edit", method = RequestMethod.POST)
+    @ResponseBody
+    public int Edit(@RequestBody UserForm userForm, HttpSession session) {
+        User user = new User();
+        user.setAccount(userForm.getuNo());
+        user.setFaculty(userForm.getFaculty());
+        user.setPassword(userForm.getPassword());
+        user.setSex(userForm.getSex());
+        if ("on".equals(userForm.getStatus())) {
+            user.setStatus(1L);
+        } else {
+            user.setStatus(0L);
+        }
+        user.setPhone(userForm.getPhone());
+        user.setUserName(userForm.getUserName());
+        try {
+            int num = userMapper.updateByPrimaryAccount(user);
+            if (num > 0) {
+                return 1;
+            } else {
+                return -1;
+            }
+        } catch (Exception ex) {
+            return -1;
+        }
+
+    }
 
     /**
      * 处理编辑请求

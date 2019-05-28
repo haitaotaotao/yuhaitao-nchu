@@ -21,7 +21,7 @@
                             <option value=""></option>
                             <%
                                 List<Course> courses = (List<Course>) request.getAttribute("courses");
-                                for (Course course : courses) {
+                                for (Course course : courses){
                             %>
                             <option value="<%=course.getCourseCode()+"|"+course.getCourseName()%>"><%=course.getCourseName()%>
                             </option>
@@ -54,7 +54,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">上课时间</label>
                     <div class="layui-input-block">
-                        <input type="text" name="courseTime" required  lay-verify="required" placeholder="请输入上课时间" autocomplete="off" class="layui-input">
+                        <input type="text" name="courseTime" value="courseTime" required  lay-verify="required" placeholder="请输入上课时间" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">

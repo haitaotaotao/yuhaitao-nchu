@@ -78,15 +78,17 @@
                 <div style="float: left;">
                     <div>
                         <input type="checkbox"
-                        <% if (user.getStatus()==0){
+                        <%
+                        int a=0;
+                        long b=a;
+                        if (user.getStatus().equals(b)){
                         %>
-
+                               name="close"
                         <%
                         } else {%>
-                               checked
-                        <%}
-                        %>
-                               name="open" lay-skin="switch" lay-text="ON|OFF" disabled>
+                               checked="" lay-filter="switchTest" name="open"
+                        <% }
+                        %>  lay-skin="switch" lay-text="ON|OFF" disabled>
                     </div>
 
                 </div>
@@ -98,14 +100,16 @@
                 <div style="float: left;">
                     <div class="">
                         <input type="radio" name="sex" value="男" title="男"
-                        <% if("男".equals(user.getSex())){%>
-                            checked
-                        <%}%>
+                            <% String sex1="男";
+                            if(sex1.equals(user.getSex())){%>
+                            checked=""
+                            <% }%>
                         disabled>
                         <input type="radio" name="sex" value="女" title="女"
-                            <% if("女".equals(user.getSex())){%>
-                               checked
-                            <%}%>
+                            <% String sex2="女";
+                            if(sex2.equals(user.getSex())){%>
+                               checked=""
+                            <% }%>
                         disabled>
                     </div>
                 </div>

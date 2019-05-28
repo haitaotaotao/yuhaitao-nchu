@@ -49,11 +49,13 @@
                     , {field: 'sex', title: '性别'}
                     , {field: 'account', title: '账号'}
                     , {field: 'password', title: '密码'}
+                    , {field: 'status', title: '权限'}
                     , {field: 'creatTime', title: '注册时间'}
                     , {field: 'modifyTime', title: '修改时间'}
                     , {field: 'phone', title: '联系电话'}
                     , {fixed: 'right', title: '操作', width: 150,
-                        templet:'<div><a class="layui-btn layui-btn-danger layui-btn-xs" href="/user/Delete?id={{d.id}}">删除</a></div>'
+                        templet:'<div><a class="layui-btn layui-btn-danger layui-btn-xs" href="/user/Delete?id={{d.id}}">删除</a>&nbsp;<a class="layui-btn layui-btn-xs" ' +
+                            'href="/EditTeacher?userName={{d.userName}}&account={{d.account}}&password={{d.password}}&phone={{d.phone}}&faculty={{d.faculty}}&status={{d.status}}&sex={{d.sex}}">修改</a></div>'
                     }
                 ]]
                 , page: true

@@ -52,7 +52,7 @@
                         fixed: 'right', title: '操作', width: 150,
                         templet: '<div><a class="layui-btn layui-btn-danger layui-btn-xs" ' +
                         'href="/course/Delete?id={{d.id}}">删除</a>&nbsp;<a class="layui-btn layui-btn-xs" ' +
-                            'href="EditTeacherCourse">修改</a></div>'
+                            'href="/EditTeacherCourse?courseTime={{d.courseTime}}">修改</a></div>'
                     }
                 ]]
                 , page: true

@@ -81,5 +81,18 @@
         select id, user_name, account, creat_time, faculty, sex, modify_time,phone
         from user where user_name=#{userName}
     </select>
+  <update id="updateByPrimaryAccount" parameterType="techermanager.pojo.User" >
+    update user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      account = #{account,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=BIGINT},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      faculty = #{faculty,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      phone = #{phone,jdbcType=VARCHAR}
+    where account = #{account,jdbcType=VARCHAR}
+  </update>
 
 </mapper>

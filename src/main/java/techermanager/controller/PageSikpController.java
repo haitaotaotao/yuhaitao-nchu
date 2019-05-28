@@ -396,4 +396,49 @@ public class PageSikpController {
         return "teacher/EditUser";
     }
 
+
+
+    @RequestMapping(value = "/EditTeacherCourse", method = RequestMethod.GET)
+    public String EditTeacherCourse(HttpSession session, Model model) {
+
+        User user = (User) session.getAttribute("User");
+        if (user != null) {
+            model.addAttribute("user", user);
+            model.addAttribute("name", user.getUserName());
+        } else {
+            model.addAttribute("msg", "请先登录！");
+            return "teacher/login";
+        }
+        return "teacher/EditTeacherCourse";
+    }
+
+
+    @RequestMapping(value = "/EditCourse", method = RequestMethod.GET)
+    public String EditCourse(HttpSession session, Model model) {
+
+        User user = (User) session.getAttribute("User");
+        if (user != null) {
+            model.addAttribute("user", user);
+            model.addAttribute("name", user.getUserName());
+        } else {
+            model.addAttribute("msg", "请先登录！");
+            return "teacher/login";
+        }
+        return "teacher/EditCourse";
+    }
+
+    @RequestMapping(value = "/EditTeacher", method = RequestMethod.GET)
+    public String EditTeacher(HttpSession session, Model model) {
+
+        User user = (User) session.getAttribute("User");
+        if (user != null) {
+            model.addAttribute("user", user);
+            model.addAttribute("name", user.getUserName());
+        } else {
+            model.addAttribute("msg", "请先登录！");
+            return "teacher/login";
+        }
+        return "teacher/EditTeacher";
+    }
+
 }
