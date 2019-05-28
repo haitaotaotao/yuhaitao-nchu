@@ -20,6 +20,9 @@
                 </div>
 
                 <button class="layui-btn" data-type="reload">搜索</button><br>
+                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2481295526&site=qq&menu=yes">
+                    <img border="0" src="http://wpa.qq.com/pa?p=2:2083552705:41" alt="点击这里给我发消息" title="点击这里给我发消息">
+                </a>
             </div>
             <table  class="layui-hide" id="test"></table>
         </div>

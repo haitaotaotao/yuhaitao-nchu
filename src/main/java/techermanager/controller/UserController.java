@@ -131,7 +131,7 @@ public class UserController {
     public int doEdit(@RequestBody UserForm userForm, HttpSession session) {
 
 
-        System.out.println("处理注册");
+        System.out.println("变更个人资料");
         User user = (User) session.getAttribute("User");
         user.setAccount(userForm.getuNo());
         user.setFaculty(userForm.getFaculty());

@@ -57,7 +57,15 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">是否是管理员权限</label>
                     <div class="layui-input-block">
-                        <input type="checkbox" name="status" lay-skin="switch">
+                        <input type="checkbox"
+                            <% if (user.getStatus()==1){
+                        %>
+
+                            <%
+                        } else {%>
+                               disabled
+                               <%}
+                        %>name="status" lay-skin="switch">
                     </div>
                 </div>
                 <div class="layui-form-item">

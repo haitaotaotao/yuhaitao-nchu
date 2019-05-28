@@ -43,7 +43,7 @@
                 ,cols: [[
                     {field:'id', title: 'ID', sort: true}
                     ,{field:'itemName', title: '科研项目名'}
-                    ,{field:'uesrId', title: '教师工号'}
+                    ,{field:'userId', title: '教师工号'}
                     ,{field:'userName', title: '教师名'}
                     ,{field:'statusName', title: '状态'}
                     ,{field:'creatTime',  title: '创建时间'}

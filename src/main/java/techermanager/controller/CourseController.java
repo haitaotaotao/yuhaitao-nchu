@@ -174,4 +174,21 @@ public class CourseController {
         return "redirect:/CourseTeacherQuery";
     }
 
+    /**
+     * 修改课程信息
+     */
+    @RequestMapping(value = "/EditTeacherCourse", method = RequestMethod.GET)
+    public String EditTeacherCourse(@RequestParam(value = "id") Long id, HttpSession session, Model model) {
+
+        CourseUser courseUser =courseUserMapper.selectByPrimaryKey(id);
+        User user = (User) session.getAttribute("User");
+        if (user != null) {
+            courseUserMapper.deleteByPrimaryKey(id);
+        } else {
+            model.addAttribute("msg", "请先登录！");
+            return "teacher/login";
+        }
+        return "redirect:/EditTeacherCourse";
+    }
+
 }

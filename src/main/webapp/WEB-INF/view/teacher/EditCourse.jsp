@@ -1,7 +1,7 @@
-<%@ page import="techermanager.pojo.User" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" href="css/layui.css"  media="all">
 <%@include file="../layout/t_header.jsp" %>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -11,34 +11,18 @@
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
             <form class="layui-form">
-                <%
-                    User user= (User)request.getAttribute("user");
-                %>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">申请人工号:</label> <%=user.getId()%>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">申请人姓名:</label> <%=user.getUserName()%>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">科研项目名称</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="itemName" required lay-verify="required" placeholder="请输入项目名称" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">科研项目详情</label>
+                    <label class="layui-form-label">课程名</label>
                     <div class="layui-input-block">
-                        <textarea name="remark" required  lay-verify="required" placeholder="请输入项目详情" autocomplete="off" class="layui-textarea"></textarea>
+                        <input type="text" name="courseName" required  lay-verify="required" placeholder="请输入课程名" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">科研项目期限</label>
+                    <label class="layui-form-label">输入课程号</label>
                     <div class="layui-input-block">
-                        <input type="text" name="deadLine" required  lay-verify="required" placeholder="请输入结题时间" autocomplete="off" class="layui-input">
+                        <input type="text" name="courseCode" required  lay-verify="required" placeholder="请输入课程号" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-
                 <div class="layui-form-item">
                     <div class="layui-input-block">
                         <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
@@ -49,15 +33,15 @@
         </div>
     </div>
     <%@include file="../layout/t_foot.jsp" %>
+    <%--    <script src="/js/layui.js" charset="utf-8"></script>--%>
     <script>
         //Demo
         layui.use('form', function(){
             var form = layui.form;
             //监听提交
             form.on('submit(formDemo)', function(data){
-
                 $.ajax({
-                    url: "item/ItemApply",
+                    url: "/course/addCourse",
                     type: "POST",
                     contentType:"application/json",
                     data:JSON.stringify(data.field),  //data表示要发送的数据
@@ -67,11 +51,11 @@
                         layer.msg(JSON.stringify(data.field));
 
                         if (data==1) {
-                            layer.msg("科研项目提交成功");
+                            layer.msg("增加课程成功");
                         }
 
                         if (data==-1){
-                            layer.msg("科研项目已提交");
+                            layer.msg("课程已存在");
                         }
 
                     }});
