@@ -87,10 +87,8 @@
       account = #{account,jdbcType=VARCHAR},
       `password` = #{password,jdbcType=VARCHAR},
       `status` = #{status,jdbcType=BIGINT},
-      creat_time = #{creatTime,jdbcType=TIMESTAMP},
       faculty = #{faculty,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       phone = #{phone,jdbcType=VARCHAR}
     where account = #{account,jdbcType=VARCHAR}
   </update>

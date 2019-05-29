@@ -4,7 +4,7 @@ import techermanager.pojo.Course;
 import techermanager.pojo.User;
 
 public class CourseUserForm {
-
+    private Long id;
     private String course;
 
     private String user;
@@ -14,7 +14,13 @@ public class CourseUserForm {
     private String address;
 
     private static final long serialVersionUID = 1L;
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getCourse() {
         return course;

@@ -24,15 +24,15 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">用户名</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="userName" value="<%=value[0]%>"  disabled="disabled" required  lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input" disable>
+                        <input type="text" name="userName" value="<%=value[0]%>" required  lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">
                     </div>
-                    <div class="layui-form-mid layui-word-aux">不可变更</div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">输入账号</label>
+                    <label class="layui-form-label">账号</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="uNo" value="<%=value[1]%>" required  lay-verify="required" placeholder="请新用户账号" autocomplete="off" class="layui-input" >
+                        <input type="text" name="uNo" value="<%=value[1]%>" required  lay-verify="required" placeholder="请新用户账号" autocomplete="off" class="layui-input" disabled>
                     </div>
+                    <div class="layui-form-mid layui-word-aux">不可变更</div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">密码框</label>

@@ -402,13 +402,18 @@ public class PageSikpController {
     public String EditTeacherCourse(HttpSession session, Model model) {
 
         User user = (User) session.getAttribute("User");
+        List<User> users = userMapper.selectAll();
+        List<Course> courses = courseMapper.selectAll();
+
         if (user != null) {
-            model.addAttribute("user", user);
             model.addAttribute("name", user.getUserName());
+            model.addAttribute("users", users);
+            model.addAttribute("courses", courses);
         } else {
             model.addAttribute("msg", "请先登录！");
             return "teacher/login";
         }
+        System.out.println("进入分配课程信息");
         return "teacher/EditTeacherCourse";
     }
 

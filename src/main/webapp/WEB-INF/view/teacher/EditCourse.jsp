@@ -1,3 +1,4 @@
+<%@ page import="java.net.URLDecoder" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -10,17 +11,32 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
+            <%
+                String utf = URLDecoder.decode(request.getQueryString(),"utf-8");
+//            System.out.println(utf+"**********");
+                String[] param = utf.split("&");
+                String[] value = new String[param.length];
+                for(int i = 0; i < param.length; i++) {
+                    value[i] = param[i].split("=")[1];
+                }
+            %>
             <form class="layui-form">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">课程名</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="courseName" required  lay-verify="required" placeholder="请输入课程名" autocomplete="off" class="layui-input">
+                <div class="layui-form-item" style="display: none">
+                    <label class="layui-form-label">id</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="id" value="<%=value[2]%>" required  lay-verify="required" autocomplete="off" class="layui-input" disabled>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">输入课程号</label>
+                    <label class="layui-form-label">课程名</label>
                     <div class="layui-input-block">
-                        <input type="text" name="courseCode" required  lay-verify="required" placeholder="请输入课程号" autocomplete="off" class="layui-input">
+                        <input type="text" name="courseName" value="<%=value[0]%>" required  lay-verify="required" placeholder="请输入课程名" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">课程号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="courseCode" value="<%=value[1]%>" required  lay-verify="required" placeholder="请输入课程号" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -41,7 +57,7 @@
             //监听提交
             form.on('submit(formDemo)', function(data){
                 $.ajax({
-                    url: "/course/addCourse",
+                    url: "/course/EditCourse",
                     type: "POST",
                     contentType:"application/json",
                     data:JSON.stringify(data.field),  //data表示要发送的数据
@@ -51,7 +67,7 @@
                         layer.msg(JSON.stringify(data.field));
 
                         if (data==1) {
-                            layer.msg("增加课程成功");
+                            layer.msg("修改课程成功");
                         }
 
                         if (data==-1){

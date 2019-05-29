@@ -159,7 +159,7 @@ public class CourseController {
 
 
     /**
-     * 处理删除
+     * 处理删除课程信息
      */
     @RequestMapping(value = "/Delete", method = RequestMethod.GET)
     public String Delete(@RequestParam(value = "id") Long id, HttpSession session, Model model) {
@@ -175,20 +175,70 @@ public class CourseController {
     }
 
     /**
-     * 修改课程信息
+     * 处理删除课程
      */
-    @RequestMapping(value = "/EditTeacherCourse", method = RequestMethod.GET)
-    public String EditTeacherCourse(@RequestParam(value = "id") Long id, HttpSession session, Model model) {
+    @RequestMapping(value = "/DeleteCourse", method = RequestMethod.GET)
+    public String DeleteCourse(@RequestParam(value = "id") Long id, HttpSession session, Model model) {
 
-        CourseUser courseUser =courseUserMapper.selectByPrimaryKey(id);
         User user = (User) session.getAttribute("User");
         if (user != null) {
-            courseUserMapper.deleteByPrimaryKey(id);
+            courseMapper.deleteByPrimaryKey(id);
         } else {
             model.addAttribute("msg", "请先登录！");
             return "teacher/login";
         }
-        return "redirect:/EditTeacherCourse";
+        return "redirect:/CourseQuery";
+    }
+    /**
+     * 修改课程信息
+     */
+    @RequestMapping(value = "/EditTC", method = RequestMethod.POST)
+    @ResponseBody
+    public int EditTC(@RequestBody CourseUserForm courseUserForm, HttpSession session) {
+        CourseUser courseUser = new CourseUser();
+        String[] coures = courseUserForm.getCourse().split("\\|");
+        String[] users = courseUserForm.getUser().split("\\|");
+        courseUser.setCourseId(Long.valueOf(coures[0]));
+        courseUser.setCourseName(coures[1]);
+        courseUser.setUesrId(Long.valueOf(users[0]));
+        courseUser.setUserName(users[1]);
+        courseUser.setCourseTime(courseUserForm.getCourseTime());
+        courseUser.setId(courseUserForm.getId());
+//        System.out.println(courseUser.getId()+"***************");
+        courseUser.setAddress(courseUserForm.getAddress());
+        try {
+            int num = courseUserMapper.updateByCourseName(courseUser);
+//            System.out.println(num);
+            if (num > 0) {
+                return 1;
+            } else {
+                return -1;
+            }
+        } catch (Exception ex) {
+            return -1;
+        }
     }
 
+
+    /**
+     * 修改课程
+     */
+    @RequestMapping(value = "/EditCourse", method = RequestMethod.POST)
+    @ResponseBody
+    public int EditCourse(@RequestBody CourseForm courseForm, HttpSession session) {
+        Course course = new Course();
+        course.setCourseName(courseForm.getCourseName());
+        course.setCourseCode(courseForm.getCourseCode());
+        course.setId(courseForm.getId());
+        try {
+            int num = courseMapper.updateByPrimaryKey(course);
+            if (num > 0) {
+                return 1;
+            } else {
+                return -1;
+            }
+        } catch (Exception ex) {
+            return -1;
+        }
+    }
 }

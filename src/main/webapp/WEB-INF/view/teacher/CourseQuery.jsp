@@ -42,7 +42,12 @@
                     ,{field:'courseCode', title: '课程号'}
                     ,{field:'courseName', title: '课程名'}
                     ,{field:'courseCreatTime',  title: '创建时间'}
-                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+                    , {
+                        fixed: 'right', title: '操作', width: 150,
+                        templet: '<div><a class="layui-btn layui-btn-danger layui-btn-xs" ' +
+                            'href="/course/DeleteCourse?id={{d.id}}">删除</a>&nbsp;<a class="layui-btn layui-btn-xs" ' +
+                            'href="/EditCourse?courseName={{d.courseName}}&courseCode={{d.courseCode}}&id={{d.id}}">编辑</a></div>'
+                    }
                 ]]
                 ,page: true
             });

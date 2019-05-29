@@ -61,4 +61,12 @@
     select id, course_id, course_name, uesr_id, user_name, course_time, address
     from course_user where user_name=#{userName}
   </select>
+  <update id="updateByCourseName" parameterType="techermanager.pojo.CourseUser" >
+    update course_user
+    set course_name = #{courseName,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      course_time = #{courseTime,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
 </mapper>
