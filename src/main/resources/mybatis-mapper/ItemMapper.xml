@@ -79,4 +79,11 @@
 <!--    </if>-->
 
   </select>
+  <select id="queryForList" resultType="map">
+        select user_name,count(user_id) as c from item
+        group by user_name
+        order by c desc
+    </select>
+
+
 </mapper>

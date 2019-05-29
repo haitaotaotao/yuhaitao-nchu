@@ -1,6 +1,8 @@
 package techermanager.controller;
 
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
@@ -25,10 +27,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/item")
@@ -256,4 +255,22 @@ public class ItemController {
         }
         return "redirect:/ItemAduit";
     }
+
+    @RequestMapping(value = "/shuju",produces= "application/json;charset=UTF-8")
+    @ResponseBody
+    public String queryForList() {
+
+        List<Map<String, Object>> List=itemMapper.queryForList();
+        //List<Chukujilu> List = chukujiluService.getAll(null);
+        JSONArray json = new JSONArray();
+        for(Map<String, Object> a : List){
+            JSONObject jo = new JSONObject();
+            jo.put("xx", a.get("user_name"));
+            jo.put("yy", a.get("c"));
+            json.add(jo);
+        }
+        System.out.print(json.toJSONString());
+        return json.toJSONString();
+    }
+
 }
