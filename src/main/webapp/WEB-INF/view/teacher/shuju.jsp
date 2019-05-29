@@ -26,7 +26,7 @@
                         title: {
                             text: '教师数据',
                             show: true, // 是否显示标题
-                            subtext: '测试数据',
+                            subtext: '项目个数',
                             textStyle: {
                                 fontSize: 18 // 标题文字大小
                             }

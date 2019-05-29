@@ -12,13 +12,13 @@
 
 </head>
 
-<body>
+<body background="/image/beijing.jpg" style="background-repeat: no-repeat;background-size: cover">
 
 <div class="container" style="margin-top: 200px;">
 <div class="row">
     <div class="col-lg-4 col-lg-offset-4">
         <form class="form-signin" method="post" action="/user/doLogin">
-            <h6 class="form-signin-heading">请登录教师管理系统</h6>
+            <h4 class="form-signin-heading" style="color:#28004D">请登录高校科研讲师教育系统</h4>
             <label for="no" class="sr-only">账号</label>
             <input  id="no" name="uNo" class="form-control" placeholder="请输入账号" required autofocus>
             &nbsp;
