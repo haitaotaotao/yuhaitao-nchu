@@ -366,6 +366,7 @@ public class PageSikpController {
         User user = (User) session.getAttribute("User");
         if (user != null) {
             List<Item> itemList = itemMapper.selectCondition(user.getUserName());
+            model.addAttribute("name", user.getUserName());
             model.addAttribute("Item", itemList);
         } else {
             model.addAttribute("msg", "请先登录！");

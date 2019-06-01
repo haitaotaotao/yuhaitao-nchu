@@ -4,6 +4,7 @@
 <%@include file="../layout/t_header.jsp" %>
 <link rel="stylesheet" href="/css/layui.css"  media="all">
 <body class="layui-layout-body">
+<%Item item=(Item) session.getAttribute("Item");%>
 <div class="layui-layout layui-layout-admin">
     <%@include file="../layout/t_nav.jsp" %>
     <%@include file="../layout/t_left_nav.jsp" %>
@@ -33,7 +34,7 @@
 
         layui.use('table', function(){
             var table = layui.table;
-
+            var none = "none";
             table.render({
                 elem: '#test'
                 ,url:'/item/ItemInfo'
@@ -46,12 +47,12 @@
                     ,{field:'statusName', title: '状态'}
                     ,{field:'creatTime',  title: '创建时间'}
                     ,{field:'file', title: '文件地址',
-                        templet: '<div><a href="/{{d.file}}" class="layui-table-link">点击下载</a></div>'}
+                        templet: '<div><a href="/{{d.file}}" class="layui-table-link" style="display: {{d.status==0?"none":""}}">点击下载</a></div>'}
                     ,{field:'remark', title: '备注'}
                     ,{field:'deadLine', title: '期限'}
                     ,{fixed: 'right', title:'操作', width:150,
                         templet:
-                            '<div><a class="layui-btn layui-btn-xs layui-icon" id="test3"  href="ItemUpload">申请结题</a>&nbsp;<a class="layui-btn layui-btn-xs layui-icon" id="test3"  href="/item/ItemDelet?id={{d.id}}">删除</a></div>'
+                            '<div><a class="layui-btn layui-btn-xs layui-icon" id="test3" href="ItemUpload" style="display: {{d.status==0?"none":""}}">申请结题</a>&nbsp;<a class="layui-btn layui-btn-xs layui-icon" id="test3"  href="/item/ItemDelet?id={{d.id}}">删除</a></div>'
                     }
                 ]]
                 ,page: true

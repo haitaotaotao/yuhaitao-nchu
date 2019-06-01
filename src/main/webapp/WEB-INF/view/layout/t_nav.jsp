@@ -7,10 +7,10 @@
             <a href="javascript:;">
                 <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
                 <%
-
+                    User rrr = (User)session.getAttribute("User");
                     String name=(String)request.getAttribute("name");
                 %>
-                <%=name%>
+                <%=rrr.getUserName()%>
             </a>
             <dl class="layui-nav-child">
                 <dd><a href="/PersonDetail">个人资料</a></dd>

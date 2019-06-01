@@ -116,7 +116,7 @@ public class ItemController {
     @ResponseBody
     public Response ItemInfo(@RequestParam(value = "page") Integer page, @RequestParam("limit") Integer limit,
             @RequestParam(value = "key[itemName]", required = false) String itemName, HttpSession session) {
-        System.out.println("2222222222");
+//        System.out.println("2222222222");
         User A = (User) session.getAttribute("User");
         String userName = A.getUserName();
         Response<ItemVO> response = new Response();
@@ -179,7 +179,13 @@ public class ItemController {
         }
         long endTime = System.currentTimeMillis();
         System.out.println("方法三的运行时间：" + String.valueOf(endTime - startTime) + "ms");
-
+//        User user = (User) session.getAttribute("User");
+//        if (user != null) {
+//            Item item = itemMapper.selectByPrimaryKey(id);
+//            item.setStatusName("申请结题中");
+//            item.setStatus(2L);
+//            itemMapper.updateByPrimaryKey(item);
+//        }
         return new ResponseData("uploadfile/" + fillName);
     }
 
@@ -247,7 +253,7 @@ public class ItemController {
         if (user != null) {
             Item item = itemMapper.selectByPrimaryKey(id);
             item.setStatusName("撤销");
-            item.setStatus(2L);
+            item.setStatus(3L);
             itemMapper.updateByPrimaryKey(item);
         } else {
             model.addAttribute("msg", "请先登录！");
@@ -256,6 +262,7 @@ public class ItemController {
         return "redirect:/ItemAduit";
     }
 
+    //项目数据分析
     @RequestMapping(value = "/shuju",produces= "application/json;charset=UTF-8")
     @ResponseBody
     public String queryForList() {

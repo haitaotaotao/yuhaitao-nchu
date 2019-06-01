@@ -21,7 +21,7 @@
                     教师名：
                 </div>
                 <div class="layui-inline">
-                    <input class="layui-input" name="userName" id="address" autocomplete="off">
+                    <input class="layui-input" name="userName" id="userName" autocomplete="off">
                 </div>
 
                 <button class="layui-btn" data-type="reload">搜索</button>

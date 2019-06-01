@@ -1,11 +1,13 @@
 <%@ page import="techermanager.pojo.User" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+    <%@ page import="techermanager.pojo.Item" %>
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="layui-side layui-bg-black">
     <div class="layui-side-scroll">
         <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
         <ul class="layui-nav layui-nav-tree"  lay-filter="test">
             <%
             long c=0;
+            long e=1;
             User yht = (User) session.getAttribute("User");
             %>
             <li class="layui-nav-item layui-nav-itemed"
@@ -26,13 +28,13 @@
                 <dl class="layui-nav-child">
                     <dd><a href="/PersonDetail">教师资料</a></dd>
                     <dd><a href="/CourseInfo">教师课程</a></dd>
-                    <dd><a href="/ItemInfo">教师科研</a></dd>
+                    <dd><a href="/ItemInfo" <%if(yht.getStatus().equals(e)){%>style="display: none"<%}%>>教师科研</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
                 <a  href="javascript:;">科研项目</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="/ItemApply">项目申请</a></dd>
+                    <dd><a href="/ItemApply"<%if(yht.getStatus().equals(e)){%>style="display: none"<%}%>>项目申请</a></dd>
                     <dd><a href="/ItemAduit" <%if(yht.getStatus().equals(c)){%>style="display: none"<%}%>>项目审核</a></dd>
                 </dl>
             </li>
